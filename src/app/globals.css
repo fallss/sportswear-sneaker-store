@@ -1,0 +1,403 @@
+@import "tailwindcss";
+
+@theme {
+  --color-vault-black: #09090b;
+  --color-vault-dark: #0f0f14;
+  --color-vault-surface: #14141a;
+  --color-vault-card: #181820;
+  --color-vault-card-hover: #1f1f2a;
+  --color-vault-border: #262632;
+  --color-vault-border-light: #383848;
+  --color-vault-lime: #ccff00;
+  --color-vault-lime-hover: #dcff33;
+  --color-vault-lime-muted: rgba(204, 255, 0, 0.12);
+  --color-vault-muted: #8e8e9e;
+
+  --font-display: 'Syne', sans-serif;
+  --font-sans: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  --font-mono: 'Space Mono', monospace;
+}
+
+:root {
+  --background: #09090b;
+  --foreground: #f4f4f7;
+
+  --font-display: 'Syne', sans-serif;
+  --font-sans: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  --font-mono: 'Space Mono', monospace;
+
+  --color-vault-black: #09090b;
+  --color-vault-dark: #0f0f14;
+  --color-vault-surface: #14141a;
+  --color-vault-card: #181820;
+  --color-vault-card-hover: #1f1f2a;
+  --color-vault-border: #262632;
+  --color-vault-border-light: #383848;
+  --color-vault-lime: #ccff00;
+  --color-vault-lime-hover: #dcff33;
+  --color-vault-lime-muted: rgba(204, 255, 0, 0.12);
+  --color-vault-muted: #8e8e9e;
+}
+
+/* Light Mode Theme Variables */
+html.light,
+html[data-theme="light"] {
+  --background: #f8fafc;
+  --foreground: #09090b;
+
+  --color-vault-black: #f8fafc;
+  --color-vault-dark: #f1f5f9;
+  --color-vault-surface: #ffffff;
+  --color-vault-card: #ffffff;
+  --color-vault-card-hover: #f1f5f9;
+  --color-vault-border: #e2e8f0;
+  --color-vault-border-light: #cbd5e1;
+  --color-vault-lime: #16a34a;
+  --color-vault-lime-hover: #15803d;
+  --color-vault-lime-muted: rgba(22, 163, 74, 0.12);
+  --color-vault-muted: #64748b;
+}
+
+html {
+  scroll-behavior: smooth;
+  background-color: var(--background);
+  color: var(--foreground);
+  font-family: var(--font-sans);
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+}
+
+body {
+  background-color: var(--background);
+  color: var(--foreground);
+  overflow-x: hidden;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  transition: background-color 0.25s ease, color 0.25s ease;
+}
+
+/* ==========================================================================
+   LIGHT MODE STYLING SYSTEM
+   Ultra-clean, high-contrast gallery aesthetic for SOLEVAULT in light mode
+   ========================================================================== */
+
+html.light,
+html[data-theme="light"] {
+  color-scheme: light;
+}
+
+html.light body,
+html[data-theme="light"] body {
+  background-color: #f8fafc !important;
+  color: #0f172a !important;
+}
+
+/* Backgrounds: Deep page layers become slate-50 */
+html.light [class*="bg-[#060608]"],
+html.light [class*="bg-[#08080a]"],
+html.light [class*="bg-[#09090b]"],
+html.light [class*="bg-[#0a0a0d]"],
+html.light [class*="bg-[#0c0c10]"],
+html.light [class*="bg-[#0d0d10]"],
+html.light [class*="bg-[#0e0e12]"],
+html.light [class*="bg-[#0e0e13]"],
+html.light [class*="bg-[#0f0f13]"],
+html.light [class*="bg-[#0f0f14]"],
+html.light [class*="bg-vault-black"],
+html.light [class*="bg-vault-dark"] {
+  background-color: #f8fafc !important;
+}
+
+/* Backgrounds: Elevated cards, containers, panels become pure white */
+html.light [class*="bg-[#101015]"],
+html.light [class*="bg-[#111115]"],
+html.light [class*="bg-[#111116]"],
+html.light [class*="bg-[#121216]"],
+html.light [class*="bg-[#121217]"],
+html.light [class*="bg-[#131318]"],
+html.light [class*="bg-[#141418]"],
+html.light [class*="bg-[#14141a]"],
+html.light [class*="bg-[#181820]"],
+html.light [class*="bg-vault-card"],
+html.light [class*="bg-vault-surface"],
+html.light [class*="bg-zinc-950"] {
+  background-color: #ffffff !important;
+}
+
+/* Secondary neutral pill/chip backgrounds become slate-100 */
+html.light [class*="bg-zinc-900"],
+html.light [class*="bg-zinc-800"] {
+  background-color: #f1f5f9 !important;
+}
+
+/* Card gradients in light mode reset background-image so solid light card colors apply cleanly */
+html.light div[class*="bg-gradient-to-"]:not([class*="from-black"]) {
+  background-image: none !important;
+}
+
+/* Badges and text sitting directly over dark image overlays must preserve crisp white text */
+html.light [class*="bg-black/"],
+html.light [class*="bg-black/"] * {
+  color: #f8fafc !important;
+}
+
+/* Hover states for secondary pills */
+html.light [class*="hover:bg-zinc-800"]:hover,
+html.light [class*="hover:bg-zinc-900"]:hover {
+  background-color: #e2e8f0 !important;
+}
+
+/* Borders: subtle high-end gallery lines */
+html.light [class*="border-zinc-800"],
+html.light [class*="border-zinc-700"],
+html.light [class*="border-zinc-900"],
+html.light [class*="border-[#1c1c24]"],
+html.light [class*="border-[#1e1e24]"],
+html.light [class*="border-[#22222a]"],
+html.light [class*="border-[#22222c]"],
+html.light [class*="border-[#262632]"],
+html.light [class*="border-[#2a2a33]"],
+html.light [class*="border-[#383844]"],
+html.light [class*="border-vault-border"] {
+  border-color: #e2e8f0 !important;
+}
+
+/* High contrast typography in light mode */
+html.light [class*="text-white"],
+html.light [class*="text-zinc-100"],
+html.light [class*="text-zinc-200"] {
+  color: #0f172a !important;
+}
+
+html.light [class*="text-zinc-300"],
+html.light [class*="text-zinc-400"] {
+  color: #334155 !important;
+}
+
+html.light [class*="text-zinc-500"] {
+  color: #64748b !important;
+}
+
+/* Accent Lime text: deep emerald for high-contrast readability */
+html.light [class*="text-vault-lime"],
+html.light [class*="text-[#ccff00]"],
+html.light [class*="text-[#d4ff00]"] {
+  color: #15803d !important;
+}
+
+/* Lime Buttons: Keep high-voltage neon with sharp dark text */
+html.light [class*="bg-vault-lime"],
+html.light [class*="bg-[#ccff00]"],
+html.light [class*="bg-[#d4ff00]"] {
+  background-color: #ccff00 !important;
+  color: #09090b !important;
+}
+
+html.light [class*="hover:bg-[#d6ff33]"]:hover,
+html.light [class*="hover:bg-[#dcff33]"]:hover {
+  background-color: #b5e600 !important;
+  color: #09090b !important;
+}
+
+/* Header & Announcement in light mode */
+html.light header {
+  background-color: rgba(255, 255, 255, 0.92) !important;
+  backdrop-filter: blur(12px) !important;
+  border-bottom: 1px solid #e2e8f0 !important;
+}
+
+html.light header [class*="bg-zinc-900/60"] {
+  background-color: #f1f5f9 !important;
+}
+
+/* Announcement Bar */
+html.light [class*="bg-[#060608]"] {
+  background-color: #f1f5f9 !important;
+  border-bottom-color: #e2e8f0 !important;
+}
+
+/* Light grid pattern */
+html.light .bg-grid-pattern {
+  background-image: 
+    linear-gradient(to right, rgba(15, 23, 42, 0.04) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(15, 23, 42, 0.04) 1px, transparent 1px) !important;
+}
+
+/* Form inputs in light mode */
+html.light input:not([type="checkbox"]):not([type="radio"]),
+html.light select,
+html.light textarea {
+  background-color: #ffffff !important;
+  color: #0f172a !important;
+  border-color: #cbd5e1 !important;
+}
+
+html.light input::placeholder,
+html.light textarea::placeholder {
+  color: #94a3b8 !important;
+}
+
+/* Modals & Backdrop Blur (Only for full-screen fixed overlay backdrops) */
+html.light .fixed[class*="bg-black/"] {
+  background-color: rgba(15, 23, 42, 0.6) !important;
+}
+
+/* Ensure all badges, chips, and watermarks over dark images or dark pills ALWAYS have crisp, high-contrast white text in both dark & light modes */
+[class*="bg-black/"],
+[class*="bg-black/"] span,
+[class*="bg-black/"] p,
+html.light [class*="bg-black/"],
+html.light [class*="bg-black/"] span,
+html.light [class*="bg-black/"] p,
+html.light [class*="bg-black/"] [class*="text-"] {
+  color: #ffffff !important;
+}
+
+/* Retain vibrant lime icon accent inside black glass badges */
+[class*="bg-black/"] svg,
+html.light [class*="bg-black/"] svg {
+  color: #ccff00 !important;
+}
+
+/* Footer in light mode */
+html.light footer {
+  background-color: #f1f5f9 !important;
+  border-top-color: #e2e8f0 !important;
+}
+
+/* Footer giant SOLEVAULT watermark in light mode */
+html.light footer [class*="font-display"][class*="text-zinc-900"] {
+  color: #cbd5e1 !important;
+}
+html.light footer [class*="font-display"][class*="text-zinc-900"] span {
+  color: #94a3b8 !important;
+}
+
+/* Custom Scrollbar for Light Mode */
+html.light ::-webkit-scrollbar-track {
+  background: #f1f5f9;
+}
+
+html.light ::-webkit-scrollbar-thumb {
+  background: #cbd5e1;
+  border: 1px solid #e2e8f0;
+}
+
+html.light ::-webkit-scrollbar-thumb:hover {
+  background: #94a3b8;
+}
+
+/* Skip link for keyboard accessibility */
+.skip-to-content {
+  position: absolute;
+  top: -100px;
+  left: 1rem;
+  z-index: 100;
+  padding: 0.75rem 1.25rem;
+  background-color: #ccff00;
+  color: #09090b;
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  border-radius: 0.5rem;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.5);
+  transition: top 0.2s ease-in-out;
+}
+
+.skip-to-content:focus {
+  top: 1rem;
+  outline: 2px solid #ffffff;
+  outline-offset: 2px;
+}
+
+/* Custom Text Selection */
+::selection {
+  background-color: #ccff00;
+  color: #09090b;
+}
+
+/* Custom Sleek Scrollbar */
+::-webkit-scrollbar {
+  width: 7px;
+  height: 7px;
+}
+
+::-webkit-scrollbar-track {
+  background: #09090b;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #272733;
+  border-radius: 9999px;
+  border: 1px solid #14141a;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #ccff00;
+}
+
+/* Typography Utility Classes */
+.font-display {
+  font-family: var(--font-display), sans-serif;
+  letter-spacing: -0.03em;
+}
+
+.font-mono-tag {
+  font-family: var(--font-mono), monospace;
+  letter-spacing: 0.04em;
+}
+
+/* Subtle, refined accent glows */
+.glow-lime {
+  box-shadow: 0 4px 20px -2px rgba(204, 255, 0, 0.22);
+}
+
+.glow-lime-sm {
+  box-shadow: 0 2px 10px -1px rgba(204, 255, 0, 0.25);
+}
+
+/* Grid & ambient background pattern */
+.bg-grid-pattern {
+  background-size: 48px 48px;
+  background-image: 
+    linear-gradient(to right, rgba(255, 255, 255, 0.025) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(255, 255, 255, 0.025) 1px, transparent 1px);
+}
+
+.bg-radial-glow {
+  background: radial-gradient(circle at 50% 15%, rgba(204, 255, 0, 0.05) 0%, transparent 65%);
+}
+
+/* Focus styles for keyboard accessibility */
+button:focus-visible, 
+a:focus-visible, 
+input:focus-visible, 
+select:focus-visible,
+textarea:focus-visible {
+  outline: 2px solid #ccff00;
+  outline-offset: 2px;
+}
+
+/* Animations */
+@keyframes pulseSubtle {
+  0%, 100% { opacity: 1; transform: scale(1); }
+  50% { opacity: 0.85; transform: scale(1.015); }
+}
+
+.animate-pulse-subtle {
+  animation: pulseSubtle 3s infinite ease-in-out;
+}
+
+/* Accessibility: respect user prefers-reduced-motion */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
