@@ -1,5 +1,7 @@
 @import "tailwindcss";
 
+@custom-variant dark (&:where(.dark, .dark *));
+
 @theme {
   --color-vault-black: #09090b;
   --color-vault-dark: #0f0f14;
@@ -137,8 +139,9 @@ html.light div[class*="bg-gradient-to-"]:not([class*="from-black"]) {
 }
 
 /* Badges and text sitting directly over dark image overlays must preserve crisp white text */
-html.light [class*="bg-black/"],
-html.light [class*="bg-black/"] * {
+html.light .absolute[class*="bg-black/"],
+html.light .absolute[class*="bg-black/"] span,
+html.light .absolute[class*="bg-black/"] p {
   color: #f8fafc !important;
 }
 
@@ -238,26 +241,99 @@ html.light textarea::placeholder {
   color: #94a3b8 !important;
 }
 
-/* Modals & Backdrop Blur (Only for full-screen fixed overlay backdrops) */
-html.light .fixed[class*="bg-black/"] {
-  background-color: rgba(15, 23, 42, 0.6) !important;
+/* Modals & Backdrop Blur */
+html.light .fixed[class*="bg-black/"],
+html.light .fixed[class*="bg-slate-950/"] {
+  background-color: rgba(15, 23, 42, 0.65) !important;
 }
 
-/* Ensure all badges, chips, and watermarks over dark images or dark pills ALWAYS have crisp, high-contrast white text in both dark & light modes */
-[class*="bg-black/"],
-[class*="bg-black/"] span,
-[class*="bg-black/"] p,
-html.light [class*="bg-black/"],
-html.light [class*="bg-black/"] span,
-html.light [class*="bg-black/"] p,
-html.light [class*="bg-black/"] [class*="text-"] {
-  color: #ffffff !important;
+/* Modals, Overlays, Search and Drawers in Light Mode */
+html.light [role="dialog"],
+html.light [aria-modal="true"],
+html.light .search-modal-container {
+  color: #0f172a !important;
 }
 
-/* Retain vibrant lime icon accent inside black glass badges */
-[class*="bg-black/"] svg,
-html.light [class*="bg-black/"] svg {
-  color: #ccff00 !important;
+html.light [role="dialog"] button:not([class*="bg-[#ccff00]"]):not([class*="bg-vault-lime"]),
+html.light [role="dialog"] span:not([class*="text-emerald"]):not([class*="text-vault-lime"]):not([class*="text-[#ccff00]"]):not([class*="text-rose-"]),
+html.light [role="dialog"] p:not([class*="text-emerald"]):not([class*="text-vault-lime"]):not([class*="text-[#ccff00]"]),
+html.light [role="dialog"] h2,
+html.light [role="dialog"] h3,
+html.light [role="dialog"] h4,
+html.light [role="dialog"] h5,
+html.light [role="dialog"] h6,
+html.light [role="dialog"] label,
+html.light [role="dialog"] a:not([class*="bg-[#ccff00]"]):not([class*="bg-vault-lime"]) {
+  color: #0f172a;
+}
+
+html.light [role="dialog"] [class*="bg-[#0e0e12]"],
+html.light [role="dialog"] [class*="bg-[#0d0d10]"],
+html.light [role="dialog"] [class*="bg-[#0c0c10]"],
+html.light [role="dialog"] [class*="bg-[#101015]"],
+html.light [role="dialog"] [class*="bg-[#111115]"],
+html.light [role="dialog"] [class*="bg-[#111116]"],
+html.light [role="dialog"] [class*="bg-zinc-950"],
+html.light [role="dialog"] [class*="bg-vault-card"],
+html.light [role="dialog"] [class*="bg-vault-surface"],
+html.light .search-modal-container {
+  background-color: #ffffff !important;
+  color: #0f172a !important;
+}
+
+html.light [role="dialog"] input,
+html.light [role="dialog"] input[type="text"] {
+  color: #0f172a !important;
+  -webkit-text-fill-color: #0f172a !important;
+  background-color: transparent !important;
+}
+
+html.light [role="dialog"] input::placeholder {
+  color: #64748b !important;
+  -webkit-text-fill-color: #64748b !important;
+}
+
+html.light [role="dialog"] [class*="text-white"],
+html.light [role="dialog"] [class*="text-zinc-100"],
+html.light [role="dialog"] [class*="text-zinc-200"] {
+  color: #0f172a !important;
+}
+
+html.light [role="dialog"] [class*="text-zinc-300"],
+html.light [role="dialog"] [class*="text-zinc-400"] {
+  color: #334155 !important;
+}
+
+html.light [role="dialog"] [class*="text-zinc-500"] {
+  color: #64748b !important;
+}
+
+html.light [role="dialog"] [class*="bg-zinc-900"],
+html.light [role="dialog"] [class*="bg-zinc-800"] {
+  background-color: #f1f5f9 !important;
+  color: #0f172a !important;
+}
+
+html.light [role="dialog"] [class*="bg-zinc-900"]:hover,
+html.light [role="dialog"] [class*="bg-zinc-800"]:hover {
+  background-color: #e2e8f0 !important;
+  color: #0f172a !important;
+}
+
+html.light [role="dialog"] [class*="text-[#ccff00]"],
+html.light [role="dialog"] [class*="text-vault-lime"],
+html.light [role="dialog"] [class*="text-emerald"] {
+  color: #15803d !important;
+}
+
+html.light [role="dialog"] svg {
+  color: inherit;
+}
+
+html.light [role="dialog"] svg[class*="text-[#ccff00]"],
+html.light [role="dialog"] svg[class*="text-vault-lime"],
+html.light [role="dialog"] svg[class*="text-emerald"] {
+  color: #15803d !important;
 }
 
 /* Footer in light mode */

@@ -86,11 +86,11 @@ export function CartDrawer() {
       role="dialog"
       aria-modal="true"
       aria-labelledby="cart-drawer-title"
-      className="fixed inset-0 z-50 flex justify-end bg-black/80 backdrop-blur-sm animate-in fade-in duration-200"
+      className="fixed inset-0 z-50 flex justify-end bg-slate-950/70 dark:bg-black/80 backdrop-blur-sm animate-in fade-in duration-200"
       onClick={closeCart}
     >
       <div
-        className="w-full max-w-md bg-[#0e0e12] h-full border-l border-zinc-800 p-6 flex flex-col justify-between overflow-y-auto animate-in slide-in-from-right duration-300"
+        className="w-full max-w-md bg-white dark:bg-[#0e0e12] h-full border-l border-zinc-200 dark:border-zinc-800 p-6 flex flex-col justify-between overflow-y-auto animate-in slide-in-from-right duration-300"
         onClick={(e) => e.stopPropagation()}
       >
         {/* Header */}

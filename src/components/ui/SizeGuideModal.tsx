@@ -49,14 +49,14 @@ export function SizeGuideModal() {
       role="dialog"
       aria-modal="true"
       aria-labelledby="size-guide-title"
-      className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/80 backdrop-blur-sm animate-in fade-in duration-200"
+      className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-slate-950/70 dark:bg-black/80 backdrop-blur-sm animate-in fade-in duration-200"
       onClick={closeSizeGuide}
     >
       <div
-        className="relative w-full max-w-2xl bg-[#111115] border border-zinc-800 rounded-2xl shadow-2xl overflow-hidden p-6 sm:p-8"
+        className="relative w-full max-w-2xl bg-white dark:bg-[#111115] border border-zinc-200 dark:border-zinc-800 rounded-2xl shadow-2xl overflow-hidden p-6 sm:p-8"
         onClick={(e) => e.stopPropagation()}
       >
-        <div className="flex items-center justify-between pb-6 border-b border-zinc-800">
+        <div className="flex items-center justify-between pb-6 border-b border-zinc-200 dark:border-zinc-800">
           <div className="flex items-center gap-3">
             <div className="p-2.5 rounded-lg bg-vault-lime/10 text-vault-lime">
               <Ruler className="w-5 h-5" />

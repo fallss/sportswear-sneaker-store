@@ -206,7 +206,7 @@ export function HeroSection() {
                   }`}
                 >
                   <span className="opacity-75">0{idx + 1}</span>
-                  <span>//</span>
+                  <span>{'//'}</span>
                   <span>{snk.brand}</span>
                 </button>
               ))}

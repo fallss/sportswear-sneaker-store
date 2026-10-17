@@ -481,11 +481,11 @@ function CatalogContent() {
         <div
           role="dialog"
           aria-modal="true"
-          className="fixed inset-0 z-50 flex lg:hidden bg-black/80 backdrop-blur-md animate-in fade-in duration-200"
+          className="fixed inset-0 z-50 flex lg:hidden bg-slate-950/70 dark:bg-black/80 backdrop-blur-md animate-in fade-in duration-200"
           onClick={() => setIsMobileFiltersOpen(false)}
         >
           <div
-            className="w-[85%] max-w-sm bg-[#0e0e13] h-full border-r border-zinc-800 p-6 overflow-y-auto"
+            className="w-[85%] max-w-sm bg-white dark:bg-[#0e0e13] h-full border-r border-zinc-200 dark:border-zinc-800 p-6 overflow-y-auto"
             onClick={(e) => e.stopPropagation()}
           >
             <CatalogFilters

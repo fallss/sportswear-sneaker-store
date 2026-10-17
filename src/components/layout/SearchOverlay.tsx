@@ -109,11 +109,11 @@ export function SearchOverlay() {
       role="dialog"
       aria-modal="true"
       aria-labelledby="search-dialog-title"
-      className="fixed inset-0 z-50 flex flex-col bg-black/85 backdrop-blur-md animate-in fade-in duration-200"
+      className="fixed inset-0 z-50 flex flex-col bg-slate-950/70 dark:bg-black/85 backdrop-blur-md animate-in fade-in duration-200"
       onClick={handleClose}
     >
       <div
-        className="w-full max-w-4xl mx-auto mt-6 sm:mt-12 p-4 sm:p-6 bg-[#111116] border border-zinc-800 rounded-2xl shadow-2xl overflow-hidden"
+        className="search-modal-container w-full max-w-4xl mx-auto mt-6 sm:mt-12 p-4 sm:p-6 bg-[#111116] border border-zinc-800 rounded-2xl shadow-2xl overflow-hidden transition-colors"
         onClick={(e) => e.stopPropagation()}
       >
         <h2 id="search-dialog-title" className="sr-only">
@@ -122,7 +122,7 @@ export function SearchOverlay() {
 
         {/* Search Input Bar */}
         <div className="relative flex items-center border-b border-zinc-800 pb-4">
-          <Search className="w-5 h-5 text-[#ccff00] mr-3" />
+          <Search className="w-5 h-5 text-vault-lime mr-3 shrink-0" />
           <input
             ref={inputRef}
             type="text"
@@ -143,7 +143,7 @@ export function SearchOverlay() {
                 setQuery('');
                 setDebouncedQuery('');
               }}
-              className="p-1.5 text-zinc-400 hover:text-white mr-2"
+              className="p-1.5 text-zinc-400 hover:text-white mr-2 transition-colors"
               aria-label="Clear search input"
             >
               <X className="w-4 h-4" />
@@ -151,7 +151,7 @@ export function SearchOverlay() {
           )}
           <button
             onClick={handleClose}
-            className="px-2.5 py-1 rounded-lg bg-zinc-800 text-zinc-400 hover:text-white font-mono text-xs uppercase tracking-wider transition-colors"
+            className="px-2.5 py-1 rounded-lg bg-zinc-800 text-zinc-400 hover:text-white font-mono text-xs uppercase tracking-wider transition-colors border border-zinc-700/60"
           >
             ESC
           </button>
@@ -159,15 +159,15 @@ export function SearchOverlay() {
 
         {/* Popular Tags Strip */}
         <div className="py-3 flex items-center gap-2 overflow-x-auto border-b border-zinc-800/60 text-xs font-mono scrollbar-none">
-          <span className="text-zinc-500 flex items-center gap-1 flex-shrink-0">
-            <Tag className="w-3 h-3 text-[#ccff00]" />
+          <span className="text-zinc-400 flex items-center gap-1.5 flex-shrink-0 font-medium">
+            <Tag className="w-3.5 h-3.5 text-vault-lime" />
             {language === 'id' ? 'Populer:' : 'Trending:'}
           </span>
           {popularTags.map((tag) => (
             <button
               key={tag}
               onClick={() => handleTagClick(tag)}
-              className="px-2.5 py-1 rounded-full bg-zinc-900 hover:bg-zinc-800 border border-zinc-800 hover:border-[#ccff00]/40 text-zinc-300 hover:text-white transition-colors flex-shrink-0"
+              className="px-3 py-1 rounded-full bg-zinc-900 hover:bg-zinc-800 border border-zinc-800 hover:border-vault-lime/40 text-zinc-300 hover:text-white transition-colors flex-shrink-0 font-medium"
             >
               {tag}
             </button>
@@ -178,8 +178,8 @@ export function SearchOverlay() {
         <div className="max-h-[60vh] overflow-y-auto py-4">
           {trimmed ? (
             matchedProducts.length > 0 ? (
-              <div className="space-y-2">
-                <p className="font-mono text-xs uppercase tracking-wider text-zinc-400 mb-3">
+              <div className="space-y-3">
+                <p className="font-mono text-xs uppercase tracking-wider text-zinc-400 mb-2 font-medium">
                   {language === 'id'
                     ? `Ditemukan ${matchedProducts.length} siluet yang cocok`
                     : `Found ${matchedProducts.length} matching silhouettes`}
@@ -190,7 +190,7 @@ export function SearchOverlay() {
                       key={product.id}
                       href={`/product/${product.slug}`}
                       onClick={() => handleSelectProduct(product)}
-                      className="flex items-center gap-3.5 p-3 rounded-xl bg-zinc-900/60 hover:bg-zinc-800/80 border border-zinc-800 hover:border-[#ccff00]/50 transition-all group"
+                      className="flex items-center gap-3.5 p-3 rounded-xl bg-zinc-900/60 hover:bg-zinc-800/80 border border-zinc-800 hover:border-vault-lime/50 transition-all group shadow-xs"
                     >
                       <div className="relative w-16 h-16 rounded-lg bg-zinc-950 overflow-hidden flex-shrink-0 border border-zinc-800">
                         <ImageWithFallback
@@ -202,24 +202,24 @@ export function SearchOverlay() {
                         />
                       </div>
                       <div className="flex-1 min-w-0">
-                        <span className="font-mono text-[10px] text-[#ccff00] uppercase tracking-wider block">
+                        <span className="font-mono text-[10px] text-vault-lime uppercase tracking-wider block font-bold">
                           {product.brand} • {product.category}
                         </span>
-                        <h4 className="font-display text-sm font-bold text-white uppercase truncate group-hover:text-[#ccff00] transition-colors">
+                        <h4 className="font-display text-sm font-bold text-white uppercase truncate group-hover:text-vault-lime transition-colors">
                           {product.name}
                         </h4>
                         <span className="font-mono text-xs font-bold text-zinc-300">
                           ${product.price}
                         </span>
                       </div>
-                      <ArrowRight className="w-4 h-4 text-zinc-600 group-hover:text-[#ccff00] group-hover:translate-x-1 transition-all" />
+                      <ArrowRight className="w-4 h-4 text-zinc-500 group-hover:text-vault-lime group-hover:translate-x-1 transition-all" />
                     </Link>
                   ))}
                 </div>
               </div>
             ) : (
               <div className="py-12 text-center">
-                <p className="font-display text-lg uppercase text-white mb-2">
+                <p className="font-display text-lg uppercase text-white mb-2 font-black">
                   {language === 'id'
                     ? `Siluet Tidak Ditemukan Untuk "${query}"`
                     : `No Silhouettes Found For "${query}"`}
@@ -232,7 +232,7 @@ export function SearchOverlay() {
                 <Link
                   href="/sneakers"
                   onClick={handleClose}
-                  className="inline-flex items-center gap-2 px-5 py-2.5 bg-[#ccff00] text-black font-mono text-xs uppercase font-bold rounded-lg transition-transform active:scale-95"
+                  className="inline-flex items-center gap-2 px-5 py-2.5 bg-[#ccff00] text-black font-mono text-xs uppercase font-bold rounded-lg transition-transform active:scale-95 shadow-sm"
                 >
                   <span>{language === 'id' ? 'Buka Semua Katalog' : 'Browse Full Catalog'}</span>
                   <ArrowRight className="w-3.5 h-3.5" />
@@ -241,17 +241,17 @@ export function SearchOverlay() {
             )
           ) : (
             /* Recent searches state */
-            <div className="space-y-4">
+            <div className="space-y-5">
               {recentSearches.length > 0 && (
                 <div>
-                  <div className="flex items-center justify-between pb-2 mb-2 border-b border-zinc-850">
-                    <span className="font-mono text-xs uppercase tracking-wider text-zinc-400 flex items-center gap-1.5">
-                      <Clock className="w-3.5 h-3.5" />
+                  <div className="flex items-center justify-between pb-2 mb-2.5 border-b border-zinc-800">
+                    <span className="font-mono text-xs uppercase tracking-wider text-zinc-400 flex items-center gap-1.5 font-bold">
+                      <Clock className="w-3.5 h-3.5 text-vault-lime" />
                       {language === 'id' ? 'Pencarian Terakhir' : 'Recent Searches'}
                     </span>
                     <button
                       onClick={clearRecentSearches}
-                      className="font-mono text-[11px] text-zinc-500 hover:text-white transition-colors"
+                      className="font-mono text-[11px] text-zinc-400 hover:text-white transition-colors underline"
                     >
                       {language === 'id' ? 'Hapus' : 'Clear'}
                     </button>
@@ -260,17 +260,17 @@ export function SearchOverlay() {
                     {recentSearches.map((term) => (
                       <div
                         key={term}
-                        className="flex items-center gap-1.5 pl-3 pr-2 py-1.5 rounded-lg bg-zinc-900 border border-zinc-800 text-xs font-mono text-zinc-300"
+                        className="flex items-center gap-1.5 pl-3 pr-2 py-1.5 rounded-lg bg-zinc-900 border border-zinc-800 text-xs font-mono text-zinc-300 shadow-xs"
                       >
                         <button
                           onClick={() => handleTagClick(term)}
-                          className="hover:text-white"
+                          className="hover:text-white font-medium"
                         >
                           {term}
                         </button>
                         <button
                           onClick={() => removeRecentSearch(term)}
-                          className="text-zinc-500 hover:text-zinc-300 p-0.5"
+                          className="text-zinc-500 hover:text-zinc-300 p-0.5 transition-colors"
                           aria-label={`Remove search term ${term}`}
                         >
                           <X className="w-3 h-3" />
@@ -283,8 +283,8 @@ export function SearchOverlay() {
 
               {/* Quick Picks */}
               <div>
-                <p className="font-mono text-xs uppercase tracking-wider text-zinc-400 mb-3 flex items-center gap-1.5">
-                  <Sparkles className="w-3.5 h-3.5 text-[#ccff00]" />
+                <p className="font-mono text-xs uppercase tracking-wider text-zinc-400 mb-3 flex items-center gap-1.5 font-bold">
+                  <Sparkles className="w-3.5 h-3.5 text-vault-lime" />
                   {language === 'id' ? 'Rekomendasi Pilihan Kurator' : 'Curator Recommended Drops'}
                 </p>
                 <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
@@ -293,9 +293,9 @@ export function SearchOverlay() {
                       key={product.id}
                       href={`/product/${product.slug}`}
                       onClick={() => handleSelectProduct(product)}
-                      className="p-3 rounded-xl bg-zinc-900/40 hover:bg-zinc-800/60 border border-zinc-800/80 transition-colors group flex items-center gap-3"
+                      className="p-3 rounded-xl bg-zinc-900/60 hover:bg-zinc-800/80 border border-zinc-800/80 transition-colors group flex items-center gap-3 shadow-xs"
                     >
-                      <div className="relative w-12 h-12 rounded-lg bg-zinc-950 overflow-hidden flex-shrink-0">
+                      <div className="relative w-12 h-12 rounded-lg bg-zinc-950 overflow-hidden flex-shrink-0 border border-zinc-800">
                         <ImageWithFallback
                           src={product.images[0]}
                           alt={product.name}
@@ -305,10 +305,10 @@ export function SearchOverlay() {
                         />
                       </div>
                       <div className="min-w-0">
-                        <span className="font-mono text-[10px] text-[#ccff00] block truncate">
+                        <span className="font-mono text-[10px] text-vault-lime font-bold block truncate">
                           {product.brand}
                         </span>
-                        <p className="font-display text-xs font-bold text-white uppercase truncate group-hover:text-[#ccff00] transition-colors">
+                        <p className="font-display text-xs font-bold text-white uppercase truncate group-hover:text-vault-lime transition-colors">
                           {product.name}
                         </p>
                       </div>
