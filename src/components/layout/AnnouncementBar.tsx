@@ -24,13 +24,13 @@ export function AnnouncementBar() {
         </div>
 
         {/* Center message */}
-        <div className="flex-1 flex items-center justify-center gap-2 text-center text-[11px] sm:text-xs">
-          <span className="text-zinc-200">
+        <div className="flex-1 flex items-center justify-center gap-2 text-center text-[11px] sm:text-xs min-w-0 px-1">
+          <span className="text-zinc-200 truncate">
             {t.announcement.shipping}
           </span>
           <Link
             href="/sneakers?sort=newest"
-            className="hidden sm:inline-flex items-center gap-1 text-[#ccff00] hover:text-[#dcff33] font-bold tracking-wider hover:underline transition-colors ml-1"
+            className="hidden sm:inline-flex items-center gap-1 text-[#ccff00] hover:text-[#dcff33] font-bold tracking-wider hover:underline transition-colors ml-1 shrink-0"
           >
             <span>{t.announcement.action}</span>
             <ArrowRight className="w-3 h-3" />
@@ -40,7 +40,7 @@ export function AnnouncementBar() {
         {/* Dismiss button */}
         <button
           onClick={() => setIsDismissed(true)}
-          className="p-1 text-zinc-400 hover:text-white hover:bg-zinc-800/80 rounded transition-colors"
+          className="p-1 text-zinc-400 hover:text-white hover:bg-zinc-800/80 rounded transition-colors shrink-0"
           aria-label={t.announcement.dismiss}
         >
           <X className="w-3.5 h-3.5" />

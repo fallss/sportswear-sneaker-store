@@ -798,7 +798,7 @@ export const translations: Record<Language, Translations> = {
       collections: 'Koleksi',
       sale: 'DISKON',
       wishlist: 'Favorit',
-      about: 'Tentang Kami',
+      about: 'Tentang',
       searchPlaceholder: 'Cari siluet, brand, warna...',
       bag: 'Keranjang',
       themeToggle: 'Ganti Mode Tema',

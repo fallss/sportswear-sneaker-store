@@ -61,12 +61,12 @@ export function Navbar() {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex items-center justify-between h-16 sm:h-[68px]">
             {/* Left: Mobile Menu Toggle + Logo + Desktop Navigation */}
-            <div className="flex items-center gap-3 sm:gap-5 lg:gap-6 xl:gap-8 min-w-0">
-              {/* Mobile Menu Button (< lg) */}
+            <div className="flex items-center gap-3 sm:gap-4 xl:gap-6 2xl:gap-8 shrink-0">
+              {/* Mobile Menu Button (< xl) */}
               <button
                 type="button"
                 onClick={() => setIsMobileMenuOpen(true)}
-                className="lg:hidden p-2 -ml-1 text-zinc-300 hover:text-white rounded-xl hover:bg-zinc-800/60 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#ccff00] transition-colors"
+                className="xl:hidden p-2 -ml-1 text-zinc-300 hover:text-white rounded-xl hover:bg-zinc-800/60 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#ccff00] transition-colors"
                 aria-label="Open mobile navigation menu"
                 aria-expanded={isMobileMenuOpen}
               >
@@ -79,17 +79,17 @@ export function Navbar() {
                 className="group flex items-center gap-1.5 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#ccff00] rounded-md shrink-0 py-1"
                 aria-label="SOLEVAULT Home"
               >
-                <span className="font-display text-xl sm:text-2xl lg:text-[23px] xl:text-3xl font-black tracking-tight text-white transition-colors group-hover:text-zinc-200">
+                <span className="font-display text-xl sm:text-2xl xl:text-3xl font-black tracking-tight text-white transition-colors group-hover:text-zinc-200">
                   SOLE<span className="text-[#ccff00]">VAULT</span>
                 </span>
                 <span className="w-1.5 h-1.5 rounded-full bg-[#ccff00] mb-2 animate-pulse shrink-0" />
               </Link>
 
-              {/* Desktop Nav Links (lg+) */}
-              <nav className="hidden lg:flex items-center gap-0.5 xl:gap-1.5 text-[11px] xl:text-xs font-mono uppercase tracking-wider xl:tracking-widest" aria-label="Main Navigation">
+              {/* Desktop Nav Links (xl+) */}
+              <nav className="hidden xl:flex items-center gap-1 xl:gap-1.5 2xl:gap-2 text-[11px] xl:text-xs font-mono uppercase tracking-wider xl:tracking-widest" aria-label="Main Navigation">
                 <Link
                   href="/sneakers?sort=newest"
-                  className={`whitespace-nowrap px-2.5 xl:px-3 py-1.5 rounded-lg transition-colors ${
+                  className={`whitespace-nowrap px-2 xl:px-2.5 2xl:px-3 py-1.5 rounded-lg transition-colors ${
                     pathname === '/sneakers' && !activeMegaMenu
                       ? 'text-emerald-700 dark:text-vault-lime font-bold bg-emerald-500/10 dark:bg-vault-lime/10'
                       : 'text-zinc-600 hover:text-zinc-950 dark:text-zinc-400 dark:hover:text-white hover:bg-black/5 dark:hover:bg-white/10'
@@ -177,7 +177,7 @@ export function Navbar() {
                 >
                   <Link
                     href="/brands"
-                    className={`whitespace-nowrap flex items-center gap-1 px-2.5 xl:px-3 py-1.5 rounded-lg transition-colors ${
+                    className={`whitespace-nowrap flex items-center gap-1 px-2 xl:px-2.5 2xl:px-3 py-1.5 rounded-lg transition-colors ${
                       activeMegaMenu === 'brands'
                         ? 'text-zinc-950 dark:text-white bg-black/5 dark:bg-white/10'
                         : 'text-zinc-600 hover:text-zinc-950 dark:text-zinc-400 dark:hover:text-white hover:bg-black/5 dark:hover:bg-white/10'
@@ -228,7 +228,7 @@ export function Navbar() {
                 {/* Collections */}
                 <Link
                   href="/collections"
-                  className={`whitespace-nowrap px-2.5 xl:px-3 py-1.5 rounded-lg transition-colors ${
+                  className={`whitespace-nowrap px-2 xl:px-2.5 2xl:px-3 py-1.5 rounded-lg transition-colors ${
                     pathname === '/collections'
                       ? 'text-emerald-700 dark:text-vault-lime font-bold bg-emerald-500/10 dark:bg-vault-lime/10'
                       : 'text-zinc-600 hover:text-zinc-950 dark:text-zinc-400 dark:hover:text-white hover:bg-black/5 dark:hover:bg-white/10'
@@ -240,7 +240,7 @@ export function Navbar() {
                 {/* About */}
                 <Link
                   href="/about"
-                  className={`whitespace-nowrap px-2.5 xl:px-3 py-1.5 rounded-lg transition-colors ${
+                  className={`whitespace-nowrap px-2 xl:px-2.5 2xl:px-3 py-1.5 rounded-lg transition-colors ${
                     pathname === '/about'
                       ? 'text-emerald-700 dark:text-vault-lime font-bold bg-emerald-500/10 dark:bg-vault-lime/10'
                       : 'text-zinc-600 hover:text-zinc-950 dark:text-zinc-400 dark:hover:text-white hover:bg-black/5 dark:hover:bg-white/10'
@@ -252,25 +252,25 @@ export function Navbar() {
                 {/* Sale Pill */}
                 <Link
                   href="/sneakers?sale=true"
-                  className="whitespace-nowrap px-2.5 xl:px-3 py-1.5 rounded-lg text-rose-600 hover:text-rose-700 dark:text-rose-400 dark:hover:text-rose-300 hover:bg-rose-500/10 transition-colors flex items-center gap-1.5 font-medium"
+                  className="whitespace-nowrap px-2 xl:px-2.5 2xl:px-3 py-1.5 rounded-lg text-rose-600 hover:text-rose-700 dark:text-rose-400 dark:hover:text-rose-300 hover:bg-rose-500/10 transition-colors flex items-center gap-1.5 font-medium shrink-0"
                 >
                   <span>{t.common.sale}</span>
-                  <span className="w-1.5 h-1.5 rounded-full bg-rose-500 animate-pulse" />
+                  <span className="w-1.5 h-1.5 rounded-full bg-rose-500 animate-pulse shrink-0" />
                 </Link>
               </nav>
             </div>
 
             {/* Right Action Icons: Language, Theme, Search, Wishlist, Bag */}
-            <div className="flex items-center gap-1 sm:gap-2 shrink-0">
+            <div className="flex items-center gap-1 sm:gap-1.5 xl:gap-2 shrink-0">
               {/* Language Switcher Pill (Hidden on mobile to preserve touch breathing room) */}
               <button
                 type="button"
                 onClick={toggleLanguage}
-                className="hidden sm:inline-flex items-center gap-1.5 px-2.5 py-1.5 rounded-lg border border-zinc-200 dark:border-zinc-800 hover:border-zinc-300 dark:hover:border-zinc-700 bg-zinc-50 dark:bg-zinc-900/60 text-xs font-mono font-bold uppercase transition-all focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-vault-lime text-zinc-700 dark:text-zinc-300 hover:text-zinc-950 dark:hover:text-white shrink-0 shadow-xs"
+                className="hidden sm:inline-flex items-center gap-1.5 px-2.5 py-1.5 rounded-lg border border-zinc-200 dark:border-zinc-800 hover:border-zinc-300 dark:hover:border-zinc-700 bg-zinc-50 dark:bg-zinc-900/60 text-xs font-mono font-bold uppercase transition-all focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-vault-lime text-zinc-700 dark:text-zinc-300 hover:text-zinc-950 dark:hover:text-white shrink-0 whitespace-nowrap shadow-xs"
                 aria-label={language === 'en' ? 'Ganti ke Bahasa Indonesia' : 'Switch to English'}
                 title={language === 'en' ? 'Bahasa Indonesia (IDN)' : 'English (ENG)'}
               >
-                <Globe className="w-3.5 h-3.5 text-emerald-700 dark:text-vault-lime" />
+                <Globe className="w-3.5 h-3.5 text-emerald-700 dark:text-vault-lime shrink-0" />
                 <span>{language === 'en' ? 'IDN' : 'ENG'}</span>
               </button>
 
