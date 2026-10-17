@@ -2,54 +2,206 @@
 
 import React from 'react';
 import Link from 'next/link';
-import { ALL_BRANDS } from '@/data/products';
-import { ArrowRight } from 'lucide-react';
+import { ArrowUpRight, Sparkles } from 'lucide-react';
 import { useTranslation } from '@/hooks/useTranslation';
+
+// Vector brand logos for authentic streetwear & luxury aesthetic
+const BRAND_LOGOS = [
+  {
+    name: 'Nike',
+    tagline: 'Just Do It',
+    category: 'Sport & Streetwear',
+    origin: 'USA',
+    slug: 'Nike',
+    icon: (
+      <svg
+        viewBox="0 0 24 24"
+        fill="currentColor"
+        className="w-10 h-10 shrink-0"
+        aria-hidden="true"
+      >
+        <path d="M23.727 6.795c-.352-.395-.873-.39-1.29-.228-3.329 1.299-8.498 3.793-12.784 7.555-3.411 3.013-6.287 7.039-6.326 7.093-.207.288-.13.682.167.886.138.094.298.141.457.141.218 0 .432-.102.569-.292.05-.07 2.766-3.832 5.922-6.626 3.633-3.216 8.358-5.596 12.18-7.091.439-.174.772-.544.605-1.44z" />
+      </svg>
+    ),
+  },
+  {
+    name: 'Jordan',
+    tagline: 'Flight & Greatness',
+    category: 'Hardcourt Royalty',
+    origin: 'USA',
+    slug: 'Jordan',
+    icon: (
+      <svg
+        viewBox="0 0 250 250"
+        fill="currentColor"
+        className="w-9 h-9 shrink-0"
+        aria-hidden="true"
+      >
+        <path d="M135.377,28.32c-0.092-0.488-0.155-0.993-0.189-1.504c-0.493-7.083,4.839-13.225,11.922-13.724 c7.089-0.494,13.23,4.845,13.724,11.928c0.494,7.083-4.839,13.225-11.921,13.724c-0.448,0.034-0.891,0.04-1.326,0.023 c-0.287,0.074-0.459,0.109-0.706,0.327c-0.729,1.136,1.854,0.924,0.098,5.889c0,0-0.012,0.545-0.207,1.09 c-0.138,1.906-0.872,7.554-0.976,10.562c0.373,0.436,0.477,0.648,0.437,1.705c-0.167,1.429-0.494,4.931-1.022,7.175 c-0.447,1.923-1.233,2.29-1.865,2.761c-0.89,3.984-1.125,7.284-3.409,12.123c-0.207,3.668-0.465,4.667-1.234,6.458 c-0.086,5.401,0.287,6.205-3.357,14.757c-0.941,4-0.046,6.767,0.947,10.923c1.016,4.271,3.834,6.056,4.253,10.43 c0.987,10.3,0.74,17.314-1.47,25.39l1.929,4.569c2.394,1.097,8.334,4.099,5.04,8.851c4.638,2.439,11.646,5.028,17.426,9.971 c2.325,1.935,4.781,4.047,6.985,6.526c4.196,0.654,3.748,0.987,6.859,2.898c9.144,5.607,23.809,16.731,32.31,24.606 c1.464,0.855,2.061,1.47,3.243,2.09c0.184,0.355,0.235,0.436,0.195,0.533c-0.407,1.028-0.391,1.057-0.758,1.877 c0.459,0.506,1.314,0.981,1.825,1.424c0.477,0.149,0.477-0.08,1.298-0.281c1.067,0.999,2.388,1.803,2.863,1.757 c1.447-0.368,1.2-0.069,2.423-1.436c0.441-0.453,1.177,0.006,1.177,0.006c0.459-0.539,1.446-1.613,2.761-2.388 c1.05-0.62,3.054-0.688,3.054-0.688c0.671,0.006,0.545,0.694,0.487,0.918c-0.757,0.391-2.364,0.821-3.266,1.486 c-1.963,2.032-3.501,4.771-3.501,4.771c3.954-0.54,6.383,0.441,9.677,0.063c1.797-0.103,3.123,0.012,5.011-1.354 c0,0,1.814-1.291,3.438-1.975c1.579-0.688,3.077-0.321,4.466,0.689c0.981,1.107,1.572,1.113,0.08,2.675 c-0.539,0.608-1.32,1.285-2.313,2.267c-1.745,1.723-4.093,4.023-6.526,5.924c-2.463,1.923-5.258,3.65-7.003,4.442 c-4.402,3.163-3.363,2.336-6.824,5.471c-0.437,0.39-1.596,1.09-2.158,1.463c-1.366,0.896-1.791,0.149-2.681-1.492 c0,0-0.408-0.614-1.079-1.923c-0.735-1.429-1.286-3.064-1.063-3.036c-0.82-0.104-4.512-4.432-4.522-5.361 c-0.781-0.178-4.11-3.403-4.23-4.018l-2.95-2.365c-3.375,0.7-4.15-1.395-13.064-7.72c-1.016-0.018-2.588-0.568-4.839-2.238 c-4.023-3.221-13.672-10.51-15.308-11.343c-1.757-0.895-3.857-1.738-5.144-2.801c-1.928-0.355-2.984-0.557-3.948-0.826 c-0.987-0.27-1.883-0.62-4.38-0.953c-4.063-0.505-8.277-2.187-12.289-4.195c-1.899-0.901-3.553-1.36-5.188-2.062 c-3.668-1.549-6.813-2.944-9.25-3.507c-0.93-0.092-5.35-1.418-7.668-2.772c-0.804-0.413-1.269-0.809-1.797-0.93 c-1.217-0.281-1.998,0.201-2.548,0.385c-2.973,1.55-5.757,2.887-8.329,4.271c-2.394,1.28-4.598,2.611-6.934,3.955 c-2.107,1.217-4.541,2.364-7.043,3.559c0,0-7.135,3.576-11.032,4.965c-3.381,2.761-10.292,7.536-14.51,9.901 c-2.089,0.993-6.147,3.564-8.019,4.139c-1.068,0.86-4.873,3.575-7.852,5.814c-2.302,1.722-4.041,3.174-4.041,3.174 c-1.337,1.199-1.246,1.768-3.788,0.688c-0.706,0.58-1.251,0.941-1.705,1.274c-1.836,1.332-1.992,1.011-2.663,0.976 c-1.28,1.108-1.441,0.534-2.56,1.809c-0.735,1.137,0.017,0.866-1.533,1.418c-0.327,0.126-0.482,0.521-0.734,0.74 c-1.246,1.027-1.251,3.926-4.236,4.133c-1.728,1.233-1.286,2.721-2.606,2.657c0.081,1.28-2.336,3.146-2.772,3.14 c-3.806,1.314-4.07-1.486-8.639,0.603c-0.591,0.27-1.458,1.017-2.6,1.234c-2.009,0.379-4.437-0.018-5.918-1.165 c-2.331-1.797-4.477-5.264-4.477-5.264c-0.741-1.751-0.31-2.858,2.003-4.512c0.964-0.614,1.142-1.073,2.761-1.183 c0.804-0.304,0.585,0.161,2.021-0.355c0.832-0.299,0.832-0.086,2.508-0.229c0.384-0.259,0.924-0.351,1.647-0.586 c1.326-0.436,2.618-0.924,2.618-0.924s0.338-0.339,1.613-0.218c1.079-0.442,2.187-1.097,2.755-1.298 c-0.144-1.71,0.04-1.63,0.832-2.318c0.987-0.85,1.165-0.712,1.9-0.184c0.31-0.179,0.459-0.241,0.425-0.5 c-0.121-0.89-0.884-1.309-0.654-3.271c-0.339-0.786-0.838-1.756-0.729-2.342c0.161-0.632,0.316-0.936,0.7-1.137 c0.408-0.218,0.54,0.075,0.758,0.321c0.39,0.454,0.706,1.797,0.706,1.797c0.138,1.516,0.608,3.479,2.106,2.371 c0.884-0.896,1.056-3.283,2.858-2.772l1.286,1.119c1.091-1.027,1.143-1.027,1.797-1.44c0,0-1.022-1.033-0.126-1.837 c0.614-0.546,1.354-0.936,2.669-2.394c3.61-3.989,5.464-5.752,9.368-8.966c7.789-6.406,16.651-10.9,22.282-13.133 c1.836-2.331,3.622-3.88,7.697-4.271c4.844-8.18,14.12-15.486,16.25-16.651c1.733-3.14,2.485-2.807,4.752-3.438 c1.796-1.44,2.204-1.44,3.008-2.944c0.781-3.105-1.802-11.399,4.792-11.818c1.401-1.98,1.051-1.504,2.612-3.375 c-1.056-2.606-1.492-4.787-1.779-6.664c-0.052-0.218-2.617-2.026-1.889-4.386c-1.09-1.297-3.128-4.324-3.765-5.742 c-0.292,0.006-0.534-0.104-0.855-0.149c-0.333-0.052-0.747-0.034-1.211-0.074c-1.027,2.651-2.146,2.847-3.972,3.432 c-3.26,6.948-4.408,9.888-13.632,15.633c-3.662,4.099-4.833,8.667-4.816,8.599c-0.631,1.354-0.408,3.249-0.075,4.265 c-0.482,1.504-0.356,1.653-0.356,1.653c0.201,0.568,0.724,1.32,1.366,1.48c1.108,0.293,2.216,0.247,2.152,1.481 c-0.149,1.544-2.175,1.291-3.134,1.119c-3.691-0.586-2.525-2.991-4.885-2.188c-1.808,1.183-2.485,4.673-5.436,4.219 c-0.39-0.258-0.27-1.021-0.006-1.572c0.414-0.861,1.148-1.573,0.712-1.895c-1.917,0.603-5.763,1.877-5.763,1.877 c-1.808,0.494-3.789-0.407-2.009-1.596c0.827-0.321,2.009-0.723,3.467-1.658c0,0,0.751-1.022-0.689-0.511 c-1.573,0.563-3.892,0.912-5.556,0.729c0,0-3.45-0.453-3.892-0.724c-0.448-0.27-0.855-1.337,0.224-1.331 c1.366,0.012,4.787-0.391,7.439-1.097c1.28-0.499,3.714-1.939,5.08-2.617c0,0,1.481-2.158,2.296-2.583 c1.36-1.567,2.508-2.491,3.713-4.093c1.177-2.428,2.394-6.273,6.291-12.226c1.802-2.744,4.041-5.94,6.859-8.797 c0,0,0.729-4.574,4.397-7.829c0.81-1.906,2.038-4.15,3.249-6.228c0.471-0.798,0.918-1.492,1.366-2.25 c1.137-1.785,2.331-5.108,6.762-5.631c0,0,1.894-1.4,2.623-2.394c1.137-0.97,0.878-2.479,1.802-3.542 c-1.412-1.377-5.022-3.966-5.373-7.565c-0.373-3.817,0.987-6.957,3.295-9.281c2.56-2.56,5.258-3.84,8.535-3.645 c4.092,0.608,4.867,1.963,6.17,3.306c1.251,1.274,1.716,0.454,2.244,1.946c3.433,0.913,3.243,0.511,3.214,3.037 c0.528,0.711,1.412,1.372,1.4,2.847c1.154-2.394,1.383-2.835,4.466-5.47c0.729-2.141,1.223-4.247,1.865-6.388 c0.6-1.98,1.347-4.018,1.926-5.551c-0.614-4.328,0.648-5.045,2.33-8.839c-0.298-0.522-0.234-0.671-0.108-1.527 c0.654-2.508,1.676-5.826,2.284-7.99c0,0,0.201-0.861,1.091-0.924c0.769-2.738,1.923-7.835,2.118-8.874 c0.792-2.864,0.281-3.783-0.327-5.396c-0.195-0.528-0.104-1.28-0.442-1.866c-0.958-1.67-1.991-3.84-2.691-5.39 c-0.454-0.987-1.172-4.707-1.172-4.707C134.843,26.42,135.377,28.32,135.377,28.32" />
+      </svg>
+    ),
+  },
+  {
+    name: 'Adidas',
+    tagline: 'Impossible Is Nothing',
+    category: 'Terrace & Track',
+    origin: 'Germany',
+    slug: 'Adidas',
+    icon: (
+      <svg
+        viewBox="0 0 24 24"
+        fill="currentColor"
+        className="w-10 h-10 shrink-0"
+        aria-hidden="true"
+      >
+        <path d="m24 19.535-8.697-15.07-4.659 2.687 7.145 12.383Zm-8.287 0L9.969 9.59 5.31 12.277l4.192 7.258ZM4.658 14.723l2.776 4.812H1.223L0 17.41Z" />
+      </svg>
+    ),
+  },
+  {
+    name: 'New Balance',
+    tagline: 'Fearlessly Independent',
+    category: 'Heritage Runner',
+    origin: 'USA',
+    slug: 'New Balance',
+    icon: (
+      <svg
+        viewBox="0 0 24 24"
+        fill="currentColor"
+        className="w-10 h-10 shrink-0"
+        aria-hidden="true"
+      >
+        <path d="M12.169 10.306l1.111-1.937 3.774-.242.132-.236-3.488-.242.82-1.414h6.47c1.99 0 3.46.715 2.887 2.8-.17.638-.979 2.233-3.356 2.899.507.06 1.76.616 1.54 2.057-.384 2.558-3.69 3.774-5.533 3.774l-7.641.006-.38-1.48 4.005-.28.137-.237-4.346-.264-.467-1.755 6.178-.363.137-.231-11.096-.693.534-.925 11.948-.775.138-.231-3.504-.231m5 .385l1.1-.006c.738-.005 1.502-.34 1.783-1.018.259-.632-.088-1.171-.55-1.166h-1.067l-1.266 2.19zm-1.27 2.195l-1.326 2.305h1.265c.589 0 1.64-.292 1.964-1.128.302-.781-.253-1.177-.638-1.177h-1.266zM6.26 16.445l-.77 1.315L0 17.77l.534-.923 5.726-.402zm.385-10.216l4.417.006.336 1.248-5.276-.33.523-.924zm5 2.245l.484 1.832-7.542-.495.528-.92 6.53-.417zm-3.84 5.281l-.957 1.661-5.32-.302.534-.924 5.743-.435z" />
+      </svg>
+    ),
+  },
+  {
+    name: 'ASICS',
+    tagline: 'Sound Mind, Sound Body',
+    category: 'Tech Performance',
+    origin: 'Japan',
+    slug: 'ASICS',
+    icon: (
+      <svg
+        viewBox="0 0 90 90"
+        fill="currentColor"
+        className="w-10 h-10 shrink-0"
+        aria-hidden="true"
+      >
+        <path d="M29.219,60.303c-4.446,0-6.583-3.418-5.467-7.372c2.304-8.195,17.109-20.339,27.198-20.339 c7.357,0,6.797,6.583,2.484,12.198l-2.384,2.639C42.499,55.82,34.572,60.303,29.219,60.303 M65.279,5.041 c-12.876,0.005-27.055,7.882-35.96,15.342l0.703,1.019c13.822-9.689,33.001-15.989,38.288-6.539 c2.792,4.985-1.947,15.053-8.621,23.01c1.596-3.514,0.542-10.261-8.764-10.261C35.455,27.612,5,48.105,5,69.078 c0,8.401,5.828,13.882,15.428,13.882c25.696,0,60.544-42.12,60.544-63.275C80.972,12.212,76.673,5.041,65.279,5.041" />
+      </svg>
+    ),
+  },
+  {
+    name: 'Puma',
+    tagline: 'Forever Faster',
+    category: 'Archive Speed',
+    origin: 'Germany',
+    slug: 'Puma',
+    icon: (
+      <svg
+        viewBox="0 0 24 24"
+        fill="currentColor"
+        className="w-10 h-10 shrink-0"
+        aria-hidden="true"
+      >
+        <path d="M23.845 3.008c-.417-.533-1.146-.106-1.467.08-2.284 1.346-2.621 3.716-3.417 5.077-.626 1.09-1.652 1.89-2.58 1.952-.686.049-1.43-.084-2.168-.405-1.807-.781-3.327-2.181-4.706-3.593-1.424-1.458-2.793-2.996-4.502-4.004C4.168.966 3.19.645 2.015.65.922.655.08 1.488.007 2.583c-.07 1.047.382 2.091 1.085 2.794 1.057 1.057 2.545 1.442 3.864 2.115 1.533.784 2.871 1.859 4.108 2.973 1.258 1.135 2.378 2.457 3.812 3.235 1.137.608 2.454.764 3.731.579 1.533-.223 2.894-1.111 4.161-1.954 1.272-.848 2.508-1.785 3.567-2.915.823-.881 1.465-1.97 1.436-3.19-.023-.974-.537-1.895-1.266-2.423z" />
+      </svg>
+    ),
+  },
+  {
+    name: 'Converse',
+    tagline: 'Rebel Heritage',
+    category: 'Counterculture',
+    origin: 'USA',
+    slug: 'Converse',
+    icon: (
+      <svg
+        viewBox="65 35 180 120"
+        fill="currentColor"
+        className="w-10 h-10 shrink-0"
+        aria-hidden="true"
+      >
+        <path d="M 116.46217,118.17609 116.34115,88.299423 144.94578,77.687836 116.13901,68.253349 115.53548,38.816955 98.060775,62.567163 69.475608,53.754706 86.068727,78.686131 69.872309,103.66327 98.08508,94.312856 z" />
+        <path d="m 120.03458,149.58101 51.23552,0 64.21344,-71.014068 -64.52309,-71.1006878 -50.74147,0 60.34684,70.9962818 z" />
+      </svg>
+    ),
+  },
+];
 
 export function BrandStrip() {
   const { t } = useTranslation();
 
+  // Duplicate brand array 3 times to ensure infinite smooth marquee without gaps on ultra-wide screens
+  const marqueeItems = [...BRAND_LOGOS, ...BRAND_LOGOS, ...BRAND_LOGOS];
+
   return (
-    <section id="featured-brands" className="py-12 bg-[#0c0c10] border-b border-zinc-800/80">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="flex flex-col md:flex-row md:items-end justify-between mb-8 pb-4 border-b border-zinc-800">
+    <section
+      id="featured-brands"
+      className="py-12 bg-[#0c0c10] border-b border-zinc-800/80 overflow-hidden relative"
+      aria-label="Featured Brands"
+    >
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mb-8">
+        <div className="flex flex-col md:flex-row md:items-end justify-between pb-4 border-b border-zinc-800">
           <div>
-            <span className="font-mono text-xs uppercase tracking-widest text-[#d4ff00]">
-              {t.homeBrands.curatedHouses}
-            </span>
+            <div className="flex items-center gap-2">
+              <span className="inline-block w-2 h-2 rounded-full bg-[#ccff00] animate-pulse" />
+              <span className="font-mono text-xs uppercase tracking-widest text-[#ccff00]">
+                {t.homeBrands.curatedHouses}
+              </span>
+            </div>
             <h2 className="font-display text-2xl sm:text-3xl font-black uppercase text-white tracking-tight mt-1">
               {t.homeBrands.selectByBrand}
             </h2>
           </div>
-          <p className="text-xs font-mono text-zinc-400 mt-2 md:mt-0">
-            {t.homeBrands.subtext}
-          </p>
-        </div>
-
-        {/* Responsive Brand Strip */}
-        <div className="grid grid-cols-2 sm:grid-cols-4 lg:grid-cols-7 gap-2.5 sm:gap-3">
-          {ALL_BRANDS.map((brand) => (
+          
+          <div className="flex items-center gap-3 mt-3 md:mt-0">
+            <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-zinc-900 border border-zinc-800 text-[11px] font-mono text-zinc-400">
+              <Sparkles className="w-3 h-3 text-[#ccff00]" />
+              Auto-rotating • Hover to pause
+            </span>
             <Link
-              key={brand}
-              href={`/sneakers?brand=${encodeURIComponent(brand)}`}
-              className="group relative flex flex-col justify-between p-3.5 sm:p-4 bg-zinc-950/80 hover:bg-zinc-900 border border-zinc-800/80 hover:border-[#d4ff00]/60 rounded-xl transition-all duration-300 hover:-translate-y-1 hover:shadow-xl min-w-0 overflow-hidden"
+              href="/brands"
+              className="text-xs font-mono uppercase tracking-wider text-zinc-400 hover:text-[#ccff00] transition-colors inline-flex items-center gap-1"
             >
-              <div className="flex justify-between items-center mb-5">
-                <span className="font-mono text-[9px] uppercase tracking-widest text-zinc-500 group-hover:text-[#d4ff00] transition-colors">
-                  {t.homeBrands.house}
-                </span>
-                <ArrowRight className="w-3.5 h-3.5 text-zinc-500 group-hover:text-[#d4ff00] group-hover:translate-x-0.5 transition-all flex-shrink-0" />
+              View Directory <ArrowUpRight className="w-3.5 h-3.5" />
+            </Link>
+          </div>
+        </div>
+      </div>
+
+      {/* Infinite Seamless Moving Marquee Strip with Left & Right Gradient Fade */}
+      <div className="relative w-full overflow-hidden marquee-mask marquee-track py-2">
+        <div className="animate-marquee flex items-center gap-4 sm:gap-6">
+          {marqueeItems.map((brand, idx) => (
+            <Link
+              key={`${brand.name}-${idx}`}
+              href={`/sneakers?brand=${encodeURIComponent(brand.slug)}`}
+              className="group/brand relative flex items-center gap-4 sm:gap-5 px-6 py-4 sm:px-8 sm:py-5 rounded-2xl bg-zinc-950/70 hover:bg-zinc-900/95 border border-zinc-800/80 hover:border-[#ccff00]/70 transition-all duration-300 hover:scale-105 hover:shadow-[0_8px_30px_rgba(204,255,0,0.15)] shrink-0 backdrop-blur-md cursor-pointer"
+              title={`Explore ${brand.name} drops`}
+            >
+              {/* Brand Vector SVG Logo */}
+              <div className="text-zinc-400 group-hover/brand:text-[#ccff00] transition-colors duration-300 transform group-hover/brand:scale-110 flex items-center justify-center shrink-0">
+                {brand.icon}
               </div>
 
-              <div className="min-w-0 mt-auto">
-                <div className="min-h-[36px] flex items-end">
-                  <h3 className="font-display text-xs sm:text-sm lg:text-[12px] xl:text-[13px] 2xl:text-sm font-black uppercase text-white group-hover:text-[#d4ff00] transition-colors leading-tight break-words">
-                    {brand}
-                  </h3>
+              {/* Brand Typography & Meta */}
+              <div className="flex flex-col text-left">
+                <div className="flex items-center gap-2">
+                  <span className="font-display text-base sm:text-lg font-black uppercase tracking-wider text-white group-hover/brand:text-[#ccff00] transition-colors">
+                    {brand.name}
+                  </span>
+                  <ArrowUpRight className="w-3.5 h-3.5 text-zinc-500 group-hover/brand:text-[#ccff00] group-hover/brand:translate-x-0.5 group-hover/brand:-translate-y-0.5 transition-all opacity-0 group-hover/brand:opacity-100" />
                 </div>
-                <span className="font-mono text-[10px] text-zinc-500 uppercase tracking-wider block mt-1.5">
-                  {t.homeBrands.exploreDrops}
-                </span>
+                <div className="flex items-center gap-2 mt-0.5">
+                  <span className="font-mono text-[10px] uppercase tracking-wider text-zinc-500 group-hover/brand:text-zinc-300 transition-colors">
+                    {brand.category}
+                  </span>
+                  <span className="w-1 h-1 rounded-full bg-zinc-700" />
+                  <span className="font-mono text-[9px] uppercase tracking-widest text-[#ccff00]/70">
+                    {brand.origin}
+                  </span>
+                </div>
               </div>
             </Link>
           ))}
