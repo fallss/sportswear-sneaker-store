@@ -54,8 +54,8 @@ export function Navbar() {
       <header
         className={`sticky top-0 z-30 transition-all duration-300 ${
           isScrolled
-            ? 'bg-[#09090b]/95 backdrop-blur-md border-b border-[#262632] py-3.5 shadow-2xl'
-            : 'bg-[#09090b] border-b border-[#1c1c24] py-4'
+            ? 'bg-[#09090b]/85 backdrop-blur-xl border-b border-zinc-800/80 py-3 shadow-[0_10px_30px_-10px_rgba(0,0,0,0.8),0_0_15px_rgba(204,255,0,0.03)]'
+            : 'bg-[#09090b]/95 backdrop-blur-md border-b border-zinc-800/50 py-3.5'
         }`}
       >
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -300,7 +300,7 @@ export function Navbar() {
               >
                 <Heart className="w-4 h-4 transition-transform group-hover:scale-110" />
                 {wishlistCount > 0 && (
-                  <span className="absolute -top-1 -right-1 min-w-[17px] h-[17px] px-1 bg-vault-lime text-black font-mono text-[9px] font-bold rounded-full flex items-center justify-center">
+                  <span className="absolute -top-1 -right-1 min-w-[18px] h-[18px] px-1 bg-[#ccff00] text-black font-mono text-[9px] font-black rounded-full flex items-center justify-center ring-2 ring-[#09090b] shadow-sm animate-pulse-subtle">
                     {wishlistCount}
                   </span>
                 )}
@@ -315,7 +315,7 @@ export function Navbar() {
               >
                 <ShoppingBag className="w-4 h-4 transition-transform group-hover:scale-110" />
                 {cartCount > 0 && (
-                  <span className="absolute -top-1 -right-1 min-w-[17px] h-[17px] px-1 bg-vault-lime text-black font-mono text-[9px] font-bold rounded-full flex items-center justify-center glow-lime-sm">
+                  <span className="absolute -top-1 -right-1 min-w-[18px] h-[18px] px-1 bg-[#ccff00] text-black font-mono text-[9px] font-black rounded-full flex items-center justify-center ring-2 ring-[#09090b] glow-lime-sm">
                     {cartCount}
                   </span>
                 )}

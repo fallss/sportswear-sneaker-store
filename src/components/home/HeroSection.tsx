@@ -137,46 +137,55 @@ export function HeroSection() {
 
           {/* Right Editorial Focal Sneaker Showcase (5 cols) */}
           <div className="lg:col-span-5 relative flex flex-col items-center justify-center">
-            {/* Visual Frame */}
-            <div className="relative w-full aspect-square max-w-md rounded-3xl overflow-hidden bg-[#111116] border border-zinc-800 p-4 shadow-2xl flex items-center justify-center">
+            {/* Visual Frame with Enhanced Elevation & Ambient Backlight */}
+            <div className="relative w-full aspect-square max-w-md rounded-3xl overflow-hidden bg-gradient-to-b from-[#181822] via-[#121218] to-[#0c0c10] border border-zinc-800/90 p-5 shadow-[0_25px_60px_-15px_rgba(0,0,0,0.8),0_0_35px_rgba(204,255,0,0.06)] flex items-center justify-center group">
               
+              {/* Layered Ambient Glow */}
+              <div className="absolute w-60 h-60 rounded-full bg-[#ccff00]/12 blur-[80px] pointer-events-none" />
+              <div className="absolute inset-0 bg-grid-pattern opacity-25 pointer-events-none" />
+
               {/* Corner Watermarks */}
-              <div className="absolute top-4 left-4 z-10 font-mono text-[10px] text-zinc-400 uppercase tracking-widest">
+              <div className="absolute top-4 left-4 z-10 font-mono text-[10px] text-zinc-400 uppercase tracking-widest bg-black/50 px-2.5 py-1 rounded-md border border-white/5 backdrop-blur-md">
                 ARCHIVE REF // {currentSneaker.sku}
               </div>
-              <div className="absolute top-4 right-4 z-10 font-mono text-[10px] text-[#ccff00] font-bold uppercase tracking-widest bg-[#ccff00]/10 px-2.5 py-0.5 rounded border border-[#ccff00]/30">
+              <div className="absolute top-4 right-4 z-10 font-mono text-[10px] text-[#ccff00] font-bold uppercase tracking-widest bg-[#ccff00]/15 px-3 py-1 rounded-full border border-[#ccff00]/40 backdrop-blur-md shadow-sm">
                 {currentSneaker.tag}
               </div>
 
-              {/* Sneaker Image */}
-              <div className="relative w-full h-full transform hover:scale-105 transition-transform duration-500">
-                <ImageWithFallback
-                  src={currentSneaker.image}
-                  alt={currentSneaker.name}
-                  fill
-                  priority
-                  sizes="(max-width: 1024px) 100vw, 40vw"
-                  className="object-contain p-6 drop-shadow-[0_20px_30px_rgba(0,0,0,0.65)]"
-                />
+              {/* Sneaker Image with Smooth Transition and Float Animation */}
+              <div
+                key={currentSneaker.slug}
+                className="relative w-full h-full flex items-center justify-center animate-fade-in-scale"
+              >
+                <div className="relative w-full h-full animate-float-gently transform group-hover:scale-105 transition-transform duration-500">
+                  <ImageWithFallback
+                    src={currentSneaker.image}
+                    alt={currentSneaker.name}
+                    fill
+                    priority
+                    sizes="(max-width: 1024px) 100vw, 40vw"
+                    className="object-contain p-6 drop-shadow-[0_25px_35px_rgba(0,0,0,0.75)]"
+                  />
+                </div>
               </div>
 
-              {/* Bottom Sneaker Details Card */}
-              <div className="absolute inset-x-4 bottom-4 p-4 rounded-2xl bg-[#09090b]/95 border border-zinc-800 backdrop-blur-md flex items-center justify-between shadow-xl">
+              {/* Bottom Sneaker Details Card with Glassmorphism */}
+              <div className="absolute inset-x-4 bottom-4 p-4 rounded-2xl bg-zinc-950/85 border border-zinc-700/60 backdrop-blur-xl flex items-center justify-between shadow-[0_10px_30px_rgba(0,0,0,0.6)]">
                 <div>
                   <span className="text-[#ccff00] font-mono text-[10px] uppercase tracking-wider font-bold block">
                     {currentSneaker.brand}
                   </span>
-                  <h3 className="font-display text-sm sm:text-base font-bold text-white uppercase truncate">
+                  <h3 className="font-display text-sm sm:text-base font-bold text-white uppercase truncate max-w-[200px] sm:max-w-[240px]">
                     {currentSneaker.name}
                   </h3>
-                  <span className="font-mono text-sm font-bold text-zinc-300">
+                  <span className="font-mono text-sm font-bold text-zinc-200">
                     {currentSneaker.price}
                   </span>
                 </div>
 
                 <Link
                   href={`/product/${currentSneaker.slug}`}
-                  className="p-3 bg-[#ccff00] hover:bg-[#dcff33] text-black rounded-xl transition-transform active:scale-90"
+                  className="p-3 bg-[#ccff00] hover:bg-[#dcff33] text-black rounded-xl transition-all duration-200 active:scale-95 shadow-md hover:shadow-lg hover:shadow-[#ccff00]/25"
                   aria-label={`View ${currentSneaker.name}`}
                 >
                   <ArrowUpRight className="w-5 h-5" />
@@ -185,18 +194,20 @@ export function HeroSection() {
             </div>
 
             {/* Sneaker Switcher Tabs */}
-            <div className="flex flex-wrap items-center justify-center gap-2 mt-4">
+            <div className="flex flex-wrap items-center justify-center gap-2 mt-4 p-1.5 rounded-xl bg-zinc-950/60 border border-zinc-850 backdrop-blur-sm">
               {heroSneakers.map((snk, idx) => (
                 <button
                   key={snk.name}
                   onClick={() => setActiveIndex(idx)}
-                  className={`px-3 py-1.5 rounded-lg font-mono text-xs transition-all ${
+                  className={`px-3.5 py-1.5 rounded-lg font-mono text-xs transition-all duration-200 flex items-center gap-1.5 ${
                     activeIndex === idx
-                      ? 'bg-[#ccff00] text-black font-bold shadow-md shadow-[#ccff00]/20'
-                      : 'bg-zinc-900 text-zinc-400 hover:text-white border border-zinc-800'
+                      ? 'bg-[#ccff00] text-black font-bold shadow-md shadow-[#ccff00]/20 scale-102'
+                      : 'bg-transparent text-zinc-400 hover:text-white hover:bg-zinc-800/60'
                   }`}
                 >
-                  0{idx + 1}{' // '}{snk.brand}
+                  <span className="opacity-75">0{idx + 1}</span>
+                  <span>//</span>
+                  <span>{snk.brand}</span>
                 </button>
               ))}
             </div>

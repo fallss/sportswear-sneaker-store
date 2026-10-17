@@ -22,6 +22,11 @@ export function ProductCard({ product, priority = false }: ProductCardProps) {
   const hasSecondary = product.images.length > 1;
   const displayImage = isHovered && hasSecondary ? product.images[1] : product.images[0];
 
+  const discountPercent =
+    product.originalPrice && product.originalPrice > product.price
+      ? Math.round(((product.originalPrice - product.price) / product.originalPrice) * 100)
+      : 0;
+
   const handleQuickAdd = (e: React.MouseEvent) => {
     e.preventDefault();
     e.stopPropagation();
@@ -37,17 +42,21 @@ export function ProductCard({ product, priority = false }: ProductCardProps) {
 
   return (
     <div
-      className="group relative flex flex-col bg-[#121216] border border-[#22222a] hover:border-[#383844] rounded-2xl overflow-hidden transition-all duration-300 hover:shadow-xl hover:-translate-y-1"
+      className="group relative flex flex-col bg-[#121216] border border-[#22222a] hover:border-[#ccff00]/60 rounded-2xl overflow-hidden transition-all duration-300 shadow-[0_4px_20px_rgba(0,0,0,0.35)] hover:shadow-[0_20px_40px_-15px_rgba(0,0,0,0.7),0_0_25px_rgba(204,255,0,0.1)] hover:-translate-y-1.5"
       onMouseEnter={() => setIsHovered(true)}
       onMouseLeave={() => setIsHovered(false)}
     >
       {/* Top Badges */}
       <div className="absolute top-3 left-3 z-10 flex flex-col gap-1.5 pointer-events-none">
-        {product.sale && (
-          <span className="inline-flex items-center gap-1 bg-vault-lime text-black font-mono text-[10px] font-bold px-2.5 py-0.5 rounded shadow-sm uppercase tracking-wider">
+        {discountPercent > 0 ? (
+          <span className="inline-flex items-center gap-1 bg-[#ccff00] text-black font-mono text-[10px] font-bold px-2.5 py-0.5 rounded shadow-sm uppercase tracking-wider">
+            -{discountPercent}% OFF
+          </span>
+        ) : product.sale ? (
+          <span className="inline-flex items-center gap-1 bg-[#ccff00] text-black font-mono text-[10px] font-bold px-2.5 py-0.5 rounded shadow-sm uppercase tracking-wider">
             {t.common.sale}
           </span>
-        )}
+        ) : null}
         {product.trending && !product.sale && (
           <span className="inline-flex items-center gap-1 bg-white text-black font-mono text-[10px] font-bold px-2.5 py-0.5 rounded shadow-sm uppercase tracking-wider">
             <Flame className="w-3 h-3 text-red-500 fill-current" />
@@ -55,8 +64,8 @@ export function ProductCard({ product, priority = false }: ProductCardProps) {
           </span>
         )}
         {product.newArrival && (
-          <span className="inline-flex items-center gap-1 bg-zinc-800/90 text-zinc-200 border border-zinc-700 font-mono text-[10px] font-semibold px-2 py-0.5 rounded backdrop-blur-sm uppercase tracking-wider">
-            <Sparkles className="w-2.5 h-2.5 text-vault-lime" />
+          <span className="inline-flex items-center gap-1 bg-zinc-900/95 text-zinc-200 border border-zinc-700/80 font-mono text-[10px] font-semibold px-2 py-0.5 rounded backdrop-blur-sm uppercase tracking-wider">
+            <Sparkles className="w-2.5 h-2.5 text-[#ccff00]" />
             {t.common.newDrop}
           </span>
         )}
@@ -66,10 +75,10 @@ export function ProductCard({ product, priority = false }: ProductCardProps) {
       <button
         type="button"
         onClick={handleToggleWishlist}
-        className={`absolute top-3 right-3 z-10 p-2.5 rounded-full transition-all duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-vault-lime ${
+        className={`absolute top-3 right-3 z-10 p-2.5 rounded-full transition-all duration-200 active:scale-90 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#ccff00] ${
           isWishlisted
-            ? 'bg-red-500/20 text-red-400 border border-red-500/50 scale-110'
-            : 'bg-black/40 text-zinc-400 hover:text-white border border-white/10 hover:bg-black/70 backdrop-blur-sm'
+            ? 'bg-red-500/25 text-red-400 border border-red-500/60 scale-105 shadow-md shadow-red-500/20'
+            : 'bg-black/50 text-zinc-400 hover:text-white border border-white/10 hover:bg-black/80 backdrop-blur-md hover:scale-105'
         }`}
         aria-label={isWishlisted ? 'Remove from wishlist' : 'Add to wishlist'}
       >
@@ -138,32 +147,32 @@ export function ProductCard({ product, priority = false }: ProductCardProps) {
           </Link>
 
           {/* Colorway details */}
-          <div className="flex items-center justify-between mt-2 text-xs font-mono">
+          <div className="flex items-center justify-between mt-2.5 text-xs font-mono">
             <div className="flex items-center gap-1.5">
               {product.availableColors.slice(0, 3).map((col) => (
                 <span
                   key={col.name}
-                  className="w-2.5 h-2.5 rounded-full border border-zinc-700 inline-block"
+                  className="w-3 h-3 rounded-full border border-zinc-700/80 shadow-xs inline-block transition-transform hover:scale-125 cursor-pointer"
                   style={{ backgroundColor: col.hex }}
                   title={col.name}
                 />
               ))}
               {product.availableColors.length > 3 && (
-                <span className="text-[10px] text-zinc-500">
+                <span className="text-[10px] text-zinc-500 font-semibold">
                   +{product.availableColors.length - 3}
                 </span>
               )}
             </div>
-            <span className="text-[10px] text-zinc-500">
+            <span className="text-[10px] text-zinc-400 font-medium">
               {product.availableSizes.length} {language === 'id' ? 'ukuran' : 'sizes'}
             </span>
           </div>
         </div>
 
         {/* Price & Mobile Actions */}
-        <div className="mt-4 pt-3 border-t border-zinc-800/80 flex items-center justify-between">
+        <div className="mt-4 pt-3.5 border-t border-zinc-800/80 flex items-center justify-between">
           <div className="flex items-baseline gap-2">
-            <span className="font-mono text-lg font-bold text-white">
+            <span className="font-mono text-lg font-bold text-white group-hover:text-[#ccff00] transition-colors">
               ${product.price}
             </span>
             {product.originalPrice && (

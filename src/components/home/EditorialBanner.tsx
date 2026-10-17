@@ -15,7 +15,7 @@ export function EditorialBanner() {
       <div className="absolute inset-0 bg-grid-pattern opacity-40 pointer-events-none" />
 
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
-        <div className="relative rounded-3xl overflow-hidden border border-zinc-800 bg-[#101015] shadow-2xl">
+        <div className="relative rounded-3xl overflow-hidden border border-zinc-800/90 bg-[#101015] shadow-[0_25px_60px_-15px_rgba(0,0,0,0.8),0_0_35px_rgba(204,255,0,0.05)] hover:border-zinc-700 transition-colors duration-500">
           
           <div className="grid grid-cols-1 lg:grid-cols-12 min-h-[500px]">
             {/* Left Campaign Imagery */}
