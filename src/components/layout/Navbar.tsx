@@ -54,46 +54,45 @@ export function Navbar() {
       <header
         className={`sticky top-0 z-30 transition-all duration-300 ${
           isScrolled
-            ? 'bg-[#09090b]/85 backdrop-blur-xl border-b border-zinc-800/80 py-3 shadow-[0_10px_30px_-10px_rgba(0,0,0,0.8),0_0_15px_rgba(204,255,0,0.03)]'
-            : 'bg-[#09090b]/95 backdrop-blur-md border-b border-zinc-800/50 py-3.5'
+            ? 'bg-[#09090b]/90 backdrop-blur-xl border-b border-zinc-800/80 shadow-[0_10px_30px_-10px_rgba(0,0,0,0.8),0_0_15px_rgba(204,255,0,0.03)]'
+            : 'bg-[#09090b]/95 backdrop-blur-md border-b border-zinc-800/50'
         }`}
       >
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="flex items-center justify-between">
-            {/* Mobile Menu Button */}
-            <div className="flex items-center lg:hidden">
+          <div className="flex items-center justify-between h-16 sm:h-[68px]">
+            {/* Left: Mobile Menu Toggle + Logo + Desktop Navigation */}
+            <div className="flex items-center gap-3 sm:gap-5 lg:gap-6 xl:gap-8 min-w-0">
+              {/* Mobile Menu Button (< lg) */}
               <button
                 type="button"
                 onClick={() => setIsMobileMenuOpen(true)}
-                className="p-2.5 text-zinc-300 hover:text-white rounded-lg hover:bg-zinc-850 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#ccff00] transition-colors"
+                className="lg:hidden p-2 -ml-1 text-zinc-300 hover:text-white rounded-xl hover:bg-zinc-800/60 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#ccff00] transition-colors"
                 aria-label="Open mobile navigation menu"
                 aria-expanded={isMobileMenuOpen}
               >
-                <Menu className="w-6 h-6" />
+                <Menu className="w-5 h-5 sm:w-6 sm:h-6" />
               </button>
-            </div>
 
-            {/* Logo */}
-            <div className="flex items-center gap-8">
+              {/* Brand Logo */}
               <Link
                 href="/"
-                className="group flex items-center gap-1.5 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#ccff00] rounded-md px-1 py-0.5"
+                className="group flex items-center gap-1.5 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#ccff00] rounded-md shrink-0 py-1"
                 aria-label="SOLEVAULT Home"
               >
-                <span className="font-display text-2xl sm:text-3xl font-black tracking-tighter text-white transition-colors group-hover:text-zinc-200">
+                <span className="font-display text-xl sm:text-2xl lg:text-[23px] xl:text-3xl font-black tracking-tight text-white transition-colors group-hover:text-zinc-200">
                   SOLE<span className="text-[#ccff00]">VAULT</span>
                 </span>
-                <span className="w-1.5 h-1.5 rounded-full bg-[#ccff00] mb-2 animate-pulse" />
+                <span className="w-1.5 h-1.5 rounded-full bg-[#ccff00] mb-2 animate-pulse shrink-0" />
               </Link>
 
-              {/* Desktop Nav Links */}
-              <nav className="hidden lg:flex items-center gap-1" aria-label="Main Navigation">
+              {/* Desktop Nav Links (lg+) */}
+              <nav className="hidden lg:flex items-center gap-0.5 xl:gap-1.5 text-[11px] xl:text-xs font-mono uppercase tracking-wider xl:tracking-widest" aria-label="Main Navigation">
                 <Link
                   href="/sneakers?sort=newest"
-                  className={`px-3.5 py-2 text-xs font-mono uppercase tracking-widest transition-colors rounded-md ${
+                  className={`whitespace-nowrap px-2.5 xl:px-3 py-1.5 rounded-lg transition-colors ${
                     pathname === '/sneakers' && !activeMegaMenu
-                      ? 'text-vault-lime font-semibold'
-                      : 'text-zinc-300 hover:text-white hover:bg-zinc-900/60'
+                      ? 'text-emerald-700 dark:text-vault-lime font-bold bg-emerald-500/10 dark:bg-vault-lime/10'
+                      : 'text-zinc-600 hover:text-zinc-950 dark:text-zinc-400 dark:hover:text-white hover:bg-black/5 dark:hover:bg-white/10'
                   }`}
                 >
                   {t.nav.newArrivals}
@@ -107,47 +106,51 @@ export function Navbar() {
                 >
                   <Link
                     href="/sneakers"
-                    className="flex items-center gap-1 px-3.5 py-2 text-xs font-mono uppercase tracking-widest text-zinc-300 hover:text-white hover:bg-zinc-900/60 rounded-md transition-colors"
+                    className={`whitespace-nowrap flex items-center gap-1 px-2.5 xl:px-3 py-1.5 rounded-lg transition-colors ${
+                      activeMegaMenu === 'sneakers'
+                        ? 'text-zinc-950 dark:text-white bg-black/5 dark:bg-white/10'
+                        : 'text-zinc-600 hover:text-zinc-950 dark:text-zinc-400 dark:hover:text-white hover:bg-black/5 dark:hover:bg-white/10'
+                    }`}
                     aria-expanded={activeMegaMenu === 'sneakers'}
                     aria-haspopup="true"
                   >
                     <span>{t.nav.sneakers}</span>
-                    <ChevronDown className="w-3.5 h-3.5 opacity-60" />
+                    <ChevronDown className={`w-3.5 h-3.5 opacity-60 transition-transform duration-200 ${activeMegaMenu === 'sneakers' ? 'rotate-180 opacity-100 text-emerald-700 dark:text-vault-lime' : ''}`} />
                   </Link>
 
                   {/* Mega Menu Dropdown: Sneakers */}
                   {activeMegaMenu === 'sneakers' && (
-                    <div className="absolute top-full left-0 w-[580px] p-6 bg-[#111116] border border-zinc-800 rounded-2xl shadow-2xl backdrop-blur-xl animate-in fade-in slide-in-from-top-2 duration-150">
+                    <div className="absolute top-full left-0 w-[580px] p-6 bg-white dark:bg-[#111116] border border-zinc-200 dark:border-zinc-800 rounded-2xl shadow-2xl backdrop-blur-xl animate-in fade-in slide-in-from-top-2 duration-150 z-50">
                       <div className="grid grid-cols-2 gap-6">
                         <div>
-                          <p className="font-mono text-[11px] uppercase tracking-wider text-zinc-400 mb-3 pb-1 border-b border-zinc-800">
+                          <p className="font-mono text-[11px] uppercase tracking-wider text-zinc-500 dark:text-zinc-400 mb-3 pb-1 border-b border-zinc-200 dark:border-zinc-800 font-bold">
                             {language === 'id' ? 'Berdasarkan Siluet' : 'By Silhouettes'}
                           </p>
-                          <ul className="space-y-2">
+                          <ul className="space-y-1.5">
                             {ALL_CATEGORIES.map((cat) => (
                               <li key={cat}>
                                 <Link
                                   href={`/sneakers?category=${cat}`}
-                                  className="flex items-center justify-between text-xs text-zinc-300 hover:text-[#ccff00] py-1 transition-colors group"
+                                  className="flex items-center justify-between text-xs text-zinc-600 hover:text-emerald-700 dark:text-zinc-300 dark:hover:text-[#ccff00] py-1.5 px-2 rounded-md hover:bg-zinc-100 dark:hover:bg-zinc-800/40 transition-colors group"
                                 >
                                   <span>{language === 'id' ? `Siluet ${cat}` : `${cat} Icons`}</span>
-                                  <ArrowRight className="w-3 h-3 opacity-0 group-hover:opacity-100 -translate-x-1 group-hover:translate-x-0 transition-all text-[#ccff00]" />
+                                  <ArrowRight className="w-3 h-3 opacity-0 group-hover:opacity-100 -translate-x-1 group-hover:translate-x-0 transition-all text-emerald-700 dark:text-[#ccff00]" />
                                 </Link>
                               </li>
                             ))}
                           </ul>
                         </div>
 
-                        <div className="bg-zinc-900/80 p-4 rounded-xl border border-zinc-800 flex flex-col justify-between">
+                        <div className="bg-zinc-50 dark:bg-zinc-900/80 p-4 rounded-xl border border-zinc-200 dark:border-zinc-800 flex flex-col justify-between">
                           <div>
-                            <div className="flex items-center gap-1.5 text-[#ccff00] text-xs font-mono font-bold uppercase mb-1">
-                              <Flame className="w-3.5 h-3.5 text-amber-400" />
+                            <div className="flex items-center gap-1.5 text-emerald-700 dark:text-[#ccff00] text-xs font-mono font-bold uppercase mb-1">
+                              <Flame className="w-3.5 h-3.5 text-amber-500" />
                               <span>{language === 'id' ? 'Kurasi Pilihan Vault' : 'Vault Selection'}</span>
                             </div>
-                            <h4 className="font-display text-sm font-bold text-white uppercase">
+                            <h4 className="font-display text-sm font-bold text-zinc-900 dark:text-white uppercase">
                               {language === 'id' ? 'Pelari Teknologi Y2K & Retro Air' : 'Y2K Tech Runners & Retro Air'}
                             </h4>
-                            <p className="text-[11px] text-zinc-400 mt-1 leading-relaxed">
+                            <p className="text-[11px] text-zinc-600 dark:text-zinc-400 mt-1 leading-relaxed">
                               {language === 'id'
                                 ? 'Jelajahi overlay perak metalik, bantalan bersegmen responsif, dan arsip siluet basket legendaris.'
                                 : 'Explore metallic silver overlays, responsive segmented cushioning, and archival basketball staples.'}
@@ -155,7 +158,7 @@ export function Navbar() {
                           </div>
                           <Link
                             href="/sneakers?featured=true"
-                            className="mt-4 inline-flex items-center gap-1.5 text-xs font-mono font-bold text-[#ccff00] hover:underline"
+                            className="mt-4 inline-flex items-center gap-1.5 text-xs font-mono font-bold text-emerald-700 dark:text-[#ccff00] hover:underline"
                           >
                             <span>{language === 'id' ? 'Jelajahi Ikon Vault' : 'Browse Vault Icons'}</span>
                             <ArrowRight className="w-3.5 h-3.5" />
@@ -174,24 +177,28 @@ export function Navbar() {
                 >
                   <Link
                     href="/brands"
-                    className="flex items-center gap-1 px-3.5 py-2 text-xs font-mono uppercase tracking-widest text-zinc-300 hover:text-white hover:bg-zinc-900/60 rounded-md transition-colors"
+                    className={`whitespace-nowrap flex items-center gap-1 px-2.5 xl:px-3 py-1.5 rounded-lg transition-colors ${
+                      activeMegaMenu === 'brands'
+                        ? 'text-zinc-950 dark:text-white bg-black/5 dark:bg-white/10'
+                        : 'text-zinc-600 hover:text-zinc-950 dark:text-zinc-400 dark:hover:text-white hover:bg-black/5 dark:hover:bg-white/10'
+                    }`}
                     aria-expanded={activeMegaMenu === 'brands'}
                     aria-haspopup="true"
                   >
                     <span>{t.nav.brands}</span>
-                    <ChevronDown className="w-3.5 h-3.5 opacity-60" />
+                    <ChevronDown className={`w-3.5 h-3.5 opacity-60 transition-transform duration-200 ${activeMegaMenu === 'brands' ? 'rotate-180 opacity-100 text-emerald-700 dark:text-vault-lime' : ''}`} />
                   </Link>
 
                   {/* Mega Menu Dropdown: Brands */}
                   {activeMegaMenu === 'brands' && (
-                    <div className="absolute top-full left-0 w-[620px] p-6 bg-[#111116] border border-zinc-800 rounded-2xl shadow-2xl backdrop-blur-xl animate-in fade-in slide-in-from-top-2 duration-150">
-                      <div className="flex items-center justify-between pb-3 mb-4 border-b border-zinc-800">
-                        <span className="font-mono text-xs uppercase tracking-wider text-zinc-400">
+                    <div className="absolute top-full left-0 w-[620px] p-6 bg-white dark:bg-[#111116] border border-zinc-200 dark:border-zinc-800 rounded-2xl shadow-2xl backdrop-blur-xl animate-in fade-in slide-in-from-top-2 duration-150 z-50">
+                      <div className="flex items-center justify-between pb-3 mb-4 border-b border-zinc-200 dark:border-zinc-800">
+                        <span className="font-mono text-xs uppercase tracking-wider text-zinc-600 dark:text-zinc-400 font-bold">
                           {t.catalog.brands}
                         </span>
                         <Link
                           href="/brands"
-                          className="font-mono text-xs text-vault-lime hover:underline flex items-center gap-1"
+                          className="font-mono text-xs text-emerald-700 dark:text-vault-lime hover:underline flex items-center gap-1"
                         >
                           <span>{t.common.viewAllHouses}</span>
                           <ArrowRight className="w-3 h-3" />
@@ -203,9 +210,9 @@ export function Navbar() {
                           <Link
                             key={brand}
                             href={`/sneakers?brand=${encodeURIComponent(brand)}`}
-                            className="p-3 rounded-xl bg-zinc-900/60 hover:bg-zinc-800/80 border border-zinc-800/80 hover:border-vault-lime/40 transition-all group"
+                            className="p-3 rounded-xl bg-zinc-50 hover:bg-zinc-100 dark:bg-zinc-900/60 dark:hover:bg-zinc-800/80 border border-zinc-200 dark:border-zinc-800/80 hover:border-emerald-600 dark:hover:border-vault-lime/40 transition-all group shadow-xs"
                           >
-                            <p className="font-display text-sm font-bold text-white group-hover:text-vault-lime transition-colors">
+                            <p className="font-display text-sm font-bold text-zinc-900 dark:text-white group-hover:text-emerald-700 dark:group-hover:text-vault-lime transition-colors">
                               {brand}
                             </p>
                             <span className="text-[10px] font-mono text-zinc-500 uppercase tracking-wider">
@@ -218,49 +225,52 @@ export function Navbar() {
                   )}
                 </div>
 
+                {/* Collections */}
                 <Link
                   href="/collections"
-                  className={`px-3.5 py-2 text-xs font-mono uppercase tracking-widest transition-colors rounded-md ${
+                  className={`whitespace-nowrap px-2.5 xl:px-3 py-1.5 rounded-lg transition-colors ${
                     pathname === '/collections'
-                      ? 'text-vault-lime font-semibold'
-                      : 'text-zinc-300 hover:text-white hover:bg-zinc-900/60'
+                      ? 'text-emerald-700 dark:text-vault-lime font-bold bg-emerald-500/10 dark:bg-vault-lime/10'
+                      : 'text-zinc-600 hover:text-zinc-950 dark:text-zinc-400 dark:hover:text-white hover:bg-black/5 dark:hover:bg-white/10'
                   }`}
                 >
                   {t.nav.collections}
                 </Link>
 
+                {/* About */}
                 <Link
                   href="/about"
-                  className={`px-3.5 py-2 text-xs font-mono uppercase tracking-widest transition-colors rounded-md ${
+                  className={`whitespace-nowrap px-2.5 xl:px-3 py-1.5 rounded-lg transition-colors ${
                     pathname === '/about'
-                      ? 'text-vault-lime font-semibold'
-                      : 'text-zinc-300 hover:text-white hover:bg-zinc-900/60'
+                      ? 'text-emerald-700 dark:text-vault-lime font-bold bg-emerald-500/10 dark:bg-vault-lime/10'
+                      : 'text-zinc-600 hover:text-zinc-950 dark:text-zinc-400 dark:hover:text-white hover:bg-black/5 dark:hover:bg-white/10'
                   }`}
                 >
                   {t.nav.about}
                 </Link>
 
+                {/* Sale Pill */}
                 <Link
                   href="/sneakers?sale=true"
-                  className="px-3.5 py-2 text-xs font-mono uppercase tracking-widest text-red-400 hover:text-red-300 hover:bg-red-950/20 rounded-md transition-colors flex items-center gap-1.5"
+                  className="whitespace-nowrap px-2.5 xl:px-3 py-1.5 rounded-lg text-rose-600 hover:text-rose-700 dark:text-rose-400 dark:hover:text-rose-300 hover:bg-rose-500/10 transition-colors flex items-center gap-1.5 font-medium"
                 >
                   <span>{t.common.sale}</span>
-                  <span className="w-1.5 h-1.5 rounded-full bg-red-400 animate-ping" />
+                  <span className="w-1.5 h-1.5 rounded-full bg-rose-500 animate-pulse" />
                 </Link>
               </nav>
             </div>
 
             {/* Right Action Icons: Language, Theme, Search, Wishlist, Bag */}
-            <div className="flex items-center gap-1.5 sm:gap-2.5">
-              {/* Language Switcher Pill */}
+            <div className="flex items-center gap-1 sm:gap-2 shrink-0">
+              {/* Language Switcher Pill (Hidden on mobile to preserve touch breathing room) */}
               <button
                 type="button"
                 onClick={toggleLanguage}
-                className="px-2.5 py-1.5 rounded-lg border border-zinc-800 hover:border-zinc-600 bg-zinc-900/60 text-xs font-mono font-bold uppercase transition-all flex items-center gap-1.5 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-vault-lime text-zinc-200 hover:text-white"
+                className="hidden sm:inline-flex items-center gap-1.5 px-2.5 py-1.5 rounded-lg border border-zinc-200 dark:border-zinc-800 hover:border-zinc-300 dark:hover:border-zinc-700 bg-zinc-50 dark:bg-zinc-900/60 text-xs font-mono font-bold uppercase transition-all focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-vault-lime text-zinc-700 dark:text-zinc-300 hover:text-zinc-950 dark:hover:text-white shrink-0 shadow-xs"
                 aria-label={language === 'en' ? 'Ganti ke Bahasa Indonesia' : 'Switch to English'}
                 title={language === 'en' ? 'Bahasa Indonesia (IDN)' : 'English (ENG)'}
               >
-                <Globe className="w-3.5 h-3.5 text-vault-lime" />
+                <Globe className="w-3.5 h-3.5 text-emerald-700 dark:text-vault-lime" />
                 <span>{language === 'en' ? 'IDN' : 'ENG'}</span>
               </button>
 
@@ -268,7 +278,7 @@ export function Navbar() {
               <button
                 type="button"
                 onClick={toggleTheme}
-                className="p-2 text-zinc-300 hover:text-white rounded-lg hover:bg-zinc-900/80 transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-vault-lime"
+                className="p-2 text-zinc-600 hover:text-zinc-950 dark:text-zinc-400 dark:hover:text-white rounded-lg hover:bg-black/5 dark:hover:bg-white/10 transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-vault-lime shrink-0"
                 aria-label={theme === 'dark' ? 'Switch to Light Mode' : 'Switch to Dark Mode'}
                 title={theme === 'dark' ? 'Light Mode' : 'Dark Mode'}
               >
@@ -279,15 +289,18 @@ export function Navbar() {
                 )}
               </button>
 
+              {/* Subtle Divider (Desktop) */}
+              <span className="hidden sm:block h-4 w-px bg-zinc-200 dark:bg-zinc-800 mx-0.5" aria-hidden="true" />
+
               {/* Search Trigger */}
               <button
                 type="button"
                 onClick={() => setSearchOpen(true)}
-                className="p-2 text-zinc-300 hover:text-vault-lime rounded-lg hover:bg-zinc-900/80 transition-colors flex items-center gap-2 group focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-vault-lime"
+                className="p-2 text-zinc-600 hover:text-emerald-700 dark:text-zinc-400 dark:hover:text-vault-lime rounded-lg hover:bg-black/5 dark:hover:bg-white/10 transition-colors flex items-center gap-2 group focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-vault-lime shrink-0"
                 aria-label="Search catalog (Press Command K)"
               >
                 <Search className="w-4 h-4 transition-transform group-hover:scale-110" />
-                <span className="hidden xl:inline font-mono text-xs text-zinc-500 group-hover:text-zinc-300">
+                <span className="hidden 2xl:inline font-mono text-xs text-zinc-500 group-hover:text-zinc-700 dark:group-hover:text-zinc-300">
                   {t.common.search} [⌘K]
                 </span>
               </button>
@@ -295,12 +308,12 @@ export function Navbar() {
               {/* Wishlist Icon */}
               <Link
                 href="/wishlist"
-                className="relative p-2 text-zinc-300 hover:text-white rounded-lg hover:bg-zinc-900/80 transition-colors group focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-vault-lime"
+                className="relative p-2 text-zinc-600 hover:text-rose-600 dark:text-zinc-400 dark:hover:text-rose-400 rounded-lg hover:bg-black/5 dark:hover:bg-white/10 transition-colors group focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-vault-lime shrink-0"
                 aria-label={`${t.nav.wishlist}, ${wishlistCount} items`}
               >
                 <Heart className="w-4 h-4 transition-transform group-hover:scale-110" />
                 {wishlistCount > 0 && (
-                  <span className="absolute -top-1 -right-1 min-w-[18px] h-[18px] px-1 bg-[#ccff00] text-black font-mono text-[9px] font-black rounded-full flex items-center justify-center ring-2 ring-[#09090b] shadow-sm animate-pulse-subtle">
+                  <span className="absolute -top-0.5 -right-0.5 min-w-[17px] h-[17px] px-1 bg-emerald-600 dark:bg-[#ccff00] text-white dark:text-black font-mono text-[9px] font-black rounded-full flex items-center justify-center ring-2 ring-white dark:ring-[#09090b] shadow-xs">
                     {wishlistCount}
                   </span>
                 )}
@@ -310,12 +323,12 @@ export function Navbar() {
               <button
                 type="button"
                 onClick={openCart}
-                className="relative p-2 text-zinc-300 hover:text-white rounded-lg hover:bg-zinc-900/80 transition-colors group focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-vault-lime"
+                className="relative p-2 text-zinc-600 hover:text-emerald-700 dark:text-zinc-400 dark:hover:text-vault-lime rounded-lg hover:bg-black/5 dark:hover:bg-white/10 transition-colors group focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-vault-lime shrink-0"
                 aria-label={`${t.nav.bag}, ${cartCount} items`}
               >
                 <ShoppingBag className="w-4 h-4 transition-transform group-hover:scale-110" />
                 {cartCount > 0 && (
-                  <span className="absolute -top-1 -right-1 min-w-[18px] h-[18px] px-1 bg-[#ccff00] text-black font-mono text-[9px] font-black rounded-full flex items-center justify-center ring-2 ring-[#09090b] glow-lime-sm">
+                  <span className="absolute -top-0.5 -right-0.5 min-w-[17px] h-[17px] px-1 bg-emerald-600 dark:bg-[#ccff00] text-white dark:text-black font-mono text-[9px] font-black rounded-full flex items-center justify-center ring-2 ring-white dark:ring-[#09090b] shadow-xs">
                     {cartCount}
                   </span>
                 )}

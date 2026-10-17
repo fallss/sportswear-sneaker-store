@@ -127,9 +127,9 @@ html.light [class*="bg-zinc-950"] {
   background-color: #ffffff !important;
 }
 
-/* Secondary neutral pill/chip backgrounds become slate-100 */
-html.light [class*="bg-zinc-900"],
-html.light [class*="bg-zinc-800"] {
+/* Secondary neutral pill/chip backgrounds become slate-100 (outside header) */
+html.light :not(header) [class*="bg-zinc-900"],
+html.light :not(header) [class*="bg-zinc-800"] {
   background-color: #f1f5f9 !important;
 }
 
@@ -203,15 +203,51 @@ html.light [class*="hover:bg-[#dcff33]"]:hover {
   color: #09090b !important;
 }
 
-/* Header & Announcement in light mode */
+/* Header & Navigation in light mode */
 html.light header {
-  background-color: rgba(255, 255, 255, 0.92) !important;
-  backdrop-filter: blur(12px) !important;
+  background-color: rgba(255, 255, 255, 0.94) !important;
+  backdrop-filter: blur(16px) !important;
   border-bottom: 1px solid #e2e8f0 !important;
 }
 
-html.light header [class*="bg-zinc-900/60"] {
-  background-color: #f1f5f9 !important;
+/* Desktop nav links in header resting state: transparent, airy, no boxes */
+html.light header nav a,
+html.light header nav button {
+  background-color: transparent !important;
+  color: #334155 !important;
+}
+
+html.light header nav a:hover,
+html.light header nav button:hover {
+  background-color: rgba(15, 23, 42, 0.05) !important;
+  color: #0f172a !important;
+}
+
+/* Active desktop nav link in light mode */
+html.light header nav a[data-active="true"] {
+  color: #15803d !important;
+  background-color: rgba(22, 163, 74, 0.08) !important;
+}
+
+/* Action buttons in header */
+html.light header button {
+  color: #334155 !important;
+}
+
+html.light header button:hover {
+  color: #0f172a !important;
+}
+
+/* Mega menu dropdowns in light mode */
+html.light header [class*="bg-[#111116]"] {
+  background-color: #ffffff !important;
+  border-color: #e2e8f0 !important;
+  box-shadow: 0 25px 50px -12px rgba(15, 23, 42, 0.12) !important;
+}
+
+html.light header [class*="bg-zinc-900/80"] {
+  background-color: #f8fafc !important;
+  border-color: #e2e8f0 !important;
 }
 
 /* Announcement Bar */
